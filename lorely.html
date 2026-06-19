@@ -1,0 +1,2747 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorely</title>
+    <style>
+        :root {
+            --theme-color: #8b5cf6;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: #0b0b0b;
+            color: #fff;
+            padding: 20px;
+            margin-left: 270px;
+        }
+
+        #sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #16131d;
+            padding: 20px;
+            box-sizing: border-box;
+            border-right: 2px solid var(--theme-color);
+            box-shadow: 0 0 20px rgba(80, 44, 96, 0.3);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #characterList {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        #chat {
+    display: block;
+    padding: 10px 0;
+    padding-bottom: 100px;
+}
+        
+        #chatPage {
+    padding-bottom: 100px;
+}
+
+        button {
+            cursor: pointer;
+            background: var(--theme-color);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            margin: 6px 0;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            box-shadow: 0 0 20px var(--theme-color);
+            ;
+            transform: translateY(-2px);
+        }
+
+        #sidebarButtons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #messageBar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+
+    padding: 10px;
+    background: #0f0d14;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+#bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 60px;
+
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    background: #16131d;
+    border-top: 2px solid var(--theme-color);
+
+    z-index: 999;
+}
+
+#bottomNav button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    padding: 0;
+    margin: 0;
+}
+#profileNavButton {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+#profileNavImage {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--theme-color);
+}
+
+
+        #loadingScreen {
+            position: fixed;
+            inset: 0;
+            background: #0b0b0b;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader-content {
+            text-align: center;
+        }
+
+        .loader-content h1 {
+            color: #c4b5fd;
+            text-shadow: 0 0 15px #8b5cf6;
+        }
+
+        .loader-content p {
+            color: #d1d5db;
+        }
+
+        .moon {
+            width: 60px;
+            height: 60px;
+            margin: 20px auto;
+            border-radius: 50%;
+            background: #c4b5fd;
+            box-shadow: 0 0 25px #8b5cf6;
+            animation: floatMoon 2s ease-in-out infinite;
+        }
+    
+
+        @keyframes floatMoon {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        #sendButton {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px;
+    max-width: 50px;
+
+    border-radius: 50%;
+    padding: 0;
+    font-size: 22px;
+    font-weight: bold;
+
+    background: var(--theme-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+}
+#sendButton:hover {
+    transform: scale(1.05);
+}
+
+#sendButton:active {
+    transform: scale(0.95);
+}
+
+        /* Mobile */
+        @media (max-width: 768px) {
+
+            body {
+                margin-left: 0 !important;
+                padding: 10px !important;
+            }
+
+            #sidebar {
+                display: none;
+            }
+
+            #characterList {
+                flex-direction: column;
+            }
+
+            button {
+                font-size: 16px !important;
+                padding: 12px !important;
+            }
+
+            input,
+            textarea {
+                width: 100% !important;
+                box-sizing: border-box;
+            }
+
+            #sidebar {
+                display: none !important;
+            }
+
+            #chatHeader {
+    position: relative;
+    background: #16131d;
+    border: 2px solid var(--theme-color);
+    border-radius: 16px;
+
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+            #chatHeader h2 {
+    margin: 0;
+    color: #d9b8ff;
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+            #chatHeader p {
+    margin: 2px 0 0 0;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+            #chat {
+                width: 100% !important;
+            }
+
+          #messageInput {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+
+    background:#16131d;;
+    color: white;
+
+    border: 2px solid var(--theme-color);
+    border-radius: 24px;
+
+    padding: 14px 18px;
+
+    resize: none;
+    outline: none;
+
+    font-size: 15px;
+    font-family: inherit;
+    min-height: 50px;
+height: 50px;
+padding: 14px 18px;
+}
+#messageInput::placeholder {
+    color: #9ca3af;
+}
+
+            button:not(#sendButton) {
+    width: 80%;
+}
+}
+#bottomNav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #bottomNav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        height: 60px;
+
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        background: #16131d;
+        border-top: 2px solid var(--theme-color);
+
+        z-index: 999;
+    }
+
+    #bottomNav button {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        padding: 0;
+        margin: 0;
+    }
+}
+.nav-active {
+    color: var(--theme-color) !important;
+    transform: scale(1.15);
+}
+    </style>
+</head>
+
+<body>
+    <div id="loadingScreen">
+        <div class="loader-content">
+            <h1>⋆˙⟡ Lorely ☾ ⋆˚࿔</h1>
+            <p id="loadingText">Loading stories...</p>
+            <div class="moon"></div>
+        </div>
+    </div>
+<div id="sidebar">
+   <h1 style="
+    color:#c4b5fd;
+    text-align:center;
+    text-shadow:0 0 10px var(--theme-color);
+">
+</h1>
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('chat')">Chat</button>
+        <button onclick="showPage('characters')">Characters</button>
+        <button onclick="showPage('create')">Create</button>
+
+        <div onclick="showPage('profile')" style="
+        margin-top:auto;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:12px;
+        cursor:pointer;
+        border-top:1px solid var(--theme-color);;
+    ">
+            <img id="sidebarProfilePicture" src=character.image || "" style="
+                width:40px;
+                height:40px;
+                border-radius:50%;
+                object-fit:cover;
+             ">
+
+            <div>
+                <div>Hope</div>
+                <small>@Leoktzelaus</small>
+            </div>
+        </div>
+    
+</div>
+
+    <div id="homePage">
+
+        <div style="text-align:right; margin-bottom:15px;">
+            <button onclick="showPage('announcements')" style="
+            background:#16131d;
+            border:2px solid var(--theme-color);
+            color:white;
+            border-radius:999px;
+            padding:8px 12px;
+            cursor:pointer;
+        ">
+                🕭
+                <span id="announcementCount" style="
+                background:#7c3aed;
+                color:white;
+                border-radius:999px;
+                padding:2px 8px;
+                font-size:12px;
+                margin-left:6px;
+                font-weight:bold;
+            ">
+                    1
+                </span>
+            </button>
+        </div>
+
+        <h1 style="
+        text-align:center;
+        margin:0;
+    ">
+            𓆩☾𓆪 Lorely
+        </h1>
+
+        <div onclick="showPage('announcements')" onmouseover="this.style.transform='translateY(-3px)'"
+            onmouseout="this.style.transform='translateY(0)'" style="
+            background:#16131d;
+            transition:0.3s;
+            border:2px solid var(--theme-color);
+            border-radius:18px;
+            padding:15px;
+            margin:20px auto;
+            max-width:500px;
+            cursor:pointer;
+            box-shadow:0 0 15px rgba(80,44,96,0.25);
+         ">
+
+            <div style="
+            color:#c084fc;
+            font-size:12px;
+            font-weight:bold;
+            margin-bottom:6px;
+        ">
+                🕭 LATEST UPDATE
+            </div>
+
+            <div id="latestVersion" style="
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+">
+</div>
+
+            <div id="latestDescription" style="
+    color:#9ca3af;
+    margin-top:5px;
+">
+</div>
+
+        </div>
+
+        <p style="
+        color:#d1d5db;
+    font-size:18px;
+    margin-top:-10px;
+    margin-bottom:25px;
+">
+            Discover your next story
+        </p>
+
+        <input id="homeSearch" placeholder="Search all characters..." oninput="loadFeaturedCharacters()" style="
+        width:100%;
+        max-width:600px;
+        padding:14px 18px;
+        border-radius:16px;
+        border:2px solid var(--theme-color);
+        background:#16131d;
+        color:white;
+        font-size:16px;
+        margin-bottom:20px;
+        box-shadow:0 0 10px rgba(80,44,96,0.2);
+    ">
+        <p style="
+        color:#9ca3af;
+        margin:0;
+        font-size:14px;
+    ">
+            Welcome back,
+        </p>
+
+        <h2 id="welcomeUser" style="
+        margin:5px 0 0 0;
+        color:white;
+    ">
+            User
+        </h2>
+        <h2>For You</h2>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+
+            <button onclick="scrollCarousel(-1)">◀</button>
+
+            <div id="featuredCharacters" style="
+            display:flex;
+            gap:15px;
+            overflow-x:auto;
+            padding:10px 0;
+            scroll-behavior:smooth;
+            flex:1;
+        "></div>
+
+            <button onclick="scrollCarousel(1)">▶</button>
+
+        </div>
+        <h2>Recently Chatted</h2>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+
+            <button onclick="scrollRecent(-1)">◀</button>
+
+            <div id="recentCharacters" style="
+        display:flex;
+        gap:15px;
+        overflow-x:auto;
+        padding:10px 0;
+        scroll-behavior:smooth;
+        flex:1;
+    "></div>
+
+            <button onclick="scrollRecent(1)">▶</button>
+
+        </div>
+        <h2>Popular</h2>
+        <div id="popularCharacters"></div>
+
+        <h2>Trending</h2>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+
+            <button onclick="scrollTrending(-1)">◀</button>
+
+            <div id="trendingCharacters" style="
+        display:flex;
+        gap:15px;
+        overflow-x:auto;
+        padding:10px 0;
+        scroll-behavior:smooth;
+        flex:1;
+    "></div>
+
+            <button onclick="scrollTrending(1)">▶</button>
+
+        </div>
+        <h2>Recommended</h2>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+
+            <button onclick="scrollRecommended(-1)">◀</button>
+
+            <div id="recommendedCharacters" style="
+        display:flex;
+        gap:15px;
+        overflow-x:auto;
+        padding:10px 0;
+        scroll-behavior:smooth;
+        flex:1;
+    "></div>
+
+            <button onclick="scrollRecommended(1)">▶</button>
+
+        </div>
+
+        </div>
+
+        <div id="announcementsPage" style="
+            display:block;
+        ">
+
+            <button onclick="showPage('home')" style="
+        background:#16131d;
+        border:2px solid var(--theme-color);
+        color:white;
+        border-radius:12px;
+        padding:8px 14px;
+        cursor:pointer;
+        margin-bottom:20px;
+    ">
+                ← Back
+             </button>
+            <button onclick="markAnnouncementsRead()" style="
+    float:right;
+    background:var(--theme-color);
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:8px 12px;
+    cursor:pointer;
+">
+                ✓ Mark as Read
+            </button>
+            <h2 style="
+        color:#f0e6ff;
+        margin-bottom:20px;
+    ">
+                🕭 Lorely News
+            </h2>
+            <div id="allCaughtUp" style="
+    display:none;
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:15px;
+    color:#c084fc;
+    text-align:center;
+">
+                ⩇⩇:⩇⩇ You're all caught up! No new announcements.
+            </div>
+            <div data-announcement="3" style="
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 0 15px rgba(80,44,96,0.3);
+">
+
+    <span style="
+        background:var(--theme-color);
+        padding:4px 10px;
+        border-radius:999px;
+        font-size:12px;
+    ">
+        NEW
+    </span>
+
+    <h3 id="latestAnnouncementTitle" style="
+        margin-top:15px;
+        color:#c084fc;
+    ">
+        Version 1.2 — Mobile Rework Update
+</h3>
+
+    <div style="
+        border-left:2px solid var(--theme-color);
+        padding-left:15px;
+        margin-top:10px;
+    ">
+        <p>
+    <span id="latestAnnouncementSummary">
+        ࣪ ִֶָ☾. Major mobile UI improvements
+    </span>
+</p>
+        <p>⋆˚࿔ Character image added to chat header</p>
+        <p>ᥫ᭡.ִֶָ Character motto added to chat header</p>
+        <p>𓏲ּ𝄢 Added back button navigation</p>
+        <p>✮⋆˙ Moved menu to top-right corner</p>
+        <p>๋࣭ ⭑ Message box and send button merged into one row</p>
+        <p>ᯓ★ Interface cleanup and visual improvements</p>
+        <p>⋆｡°✩ Various bug fixes and stability improvements</p>
+    </div>
+
+    <small style="color:#9ca3af;">
+        June 19, 2026
+    </small>
+
+</div>
+            <div data-announcement="2" style="
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 0 15px rgba(80,44,96,0.3);
+">
+
+                <span style="
+        background:var(--theme-color);
+        padding:4px 10px;
+        border-radius:999px;
+        font-size:12px;
+    ">
+                    NEW
+                </span>
+
+                <h3 style="
+        margin-top:15px;
+        color:#c084fc;
+    ">
+                    Version 1.1
+                </h3>
+
+                <div style="
+        border-left:2px solid var(--theme-color);
+        padding-left:15px;
+        margin-top:10px;
+    ">
+                    <p> ᯓ★Added Announcement Center</p>
+                    <p> ᥫ᭡.ִֶָAdded unread notification system</p>
+                    <p> 𓏲ּ𝄢 Added purple notification badge</p>
+                    <p> ✮⋆˙Added Mark as Read button</p>
+                    <p> ๋࣭ ⭑Added "You're all caught up!" message</p>
+                    <p> ⋆˚࿔Added Latest Update card to homepage</p>
+                </div>
+
+                <small style="color:#9ca3af;">
+                    June 17, 2026
+                </small>
+
+            </div>
+            
+            <div data-announcement="1" style="
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 0 15px rgba(80,44,96,0.3);
+">
+
+                <!-- PASTE THE NEW CODE HERE -->
+
+                <span style="
+        background:var(--theme-color);
+        padding:4px 10px;
+        border-radius:999px;
+        font-size:12px;
+    ">
+                    NEW
+                </span>
+
+                <h3 style="
+        margin-top:15px;
+        color:#c084fc;
+    ">
+                    Version 1.0
+                </h3>
+
+                <div style="
+        border-left:2px solid var(--theme-color);
+        padding-left:15px;
+        margin-top:10px;
+    ">
+                    <p>࣪ ִֶָ☾.Major homepage redesign</p>
+                    <p>๋ ࣭ ⭑๋ ࣭ ⭑ Added Trending section</p>
+                    <p>⋆˚࿔ Added brand-new loading screen</p>
+                    <p> ⏾⋆.˚Added announcement system</p>
+                </div>
+
+                <small style="color:#9ca3af;">
+                    June 17, 2026
+                </small>
+
+            </div>
+        </div>
+    </div>
+    <div id="profilePage" style="display:none">
+
+        <div style="text-align:center;">
+
+            <img id="profilePicture" src="" style="
+        width:120px;
+        height:120px;
+        border-radius:50%;
+        object-fit:cover;
+        display:block;
+        margin:0 auto;
+        border:3px solid var(--theme-color);
+">
+            <input type="file" id="profilePictureUpload" accept="image/*" onchange="changeProfilePicture(event)"
+                style="margin-top:10px;">
+
+            <div style="
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    margin-top:15px;
+">
+
+                <input id="displayName" value="Hope" style="
+                width:300px;
+                text-align:center;
+                font-size:24px;
+                background:#16131d;
+                color:white;
+                border:2px solid var(--theme-color);
+                border-radius:12px;
+                padding:8px;
+           ">
+
+                <input id="username" value="@Leoktzelaus" style="
+                width:300px;
+                text-align:center;
+                background:#16131d;
+                color:#9ca3af;
+                border:2px solid var(--theme-color);
+                border-radius:12px;
+                padding:8px;
+           ">
+
+                <textarea id="profileBio" placeholder="Bio" style="
+                    width:300px;
+                    height:80px;
+                    text-align:center;
+                    background:#16131d;
+                    color:white;
+                    border:2px solid var(--theme-color);
+                    border-radius:12px;
+                    padding:10px;
+                    resize:none;
+              "></textarea>
+
+                <button onclick="saveProfile()" style="
+        background:var(--theme-color);
+        color:white;
+        border:none;
+        border-radius:12px;
+        padding:10px 16px;
+        cursor:pointer;
+    ">
+                    Save Profile
+                </button>
+
+            </div>
+
+            <div style="
+        display:flex;
+        justify-content:space-around;
+        margin-top:20px;
+        text-align:center;
+    ">
+                <div>
+                    <strong id="charactersCount">0</strong><br>
+                    Characters
+                </div>
+                <div>
+                    <strong>0</strong><br>
+                    Followers
+                </div>
+
+                <div>
+                    <strong>0</strong><br>
+                    Following
+                </div>
+
+                <div>
+                    <strong>0</strong><br>
+                    Interactions
+                </div>
+
+            </div>
+
+            <div style="
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:25px;
+    margin-bottom:20px;
+">
+
+                <button onclick="showProfileTab('characters')">
+                    Characters
+                </button>
+
+                <button onclick="showProfileTab('liked')">
+                    Liked
+                </button>
+
+                <button onclick="showProfileTab('personas')">
+                    Personas
+                </button>
+
+                <button onclick="showProfileTab('voices')">
+                    Voices
+                </button>
+
+                <button onclick="showProfileTab('settings')">
+                    Settings
+                </button>
+
+            </div>
+
+            <div id="profileTabContent" style="
+    margin-top:20px;
+">
+            </div>
+        </div>
+
+    </div>
+    <div id="chatPage">
+        <div id="chatHeader" style="
+    position:relative;
+">
+<button onclick="showPage('characters')" id="backButton" style="
+    position:absolute;
+    top:15px;
+    left:15px;
+    width:auto !important;
+    padding:0 !important;
+    background:none;
+    border:none;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+    z-index:1000;
+">
+    ←
+</button>
+             <img id="chatCharacterImage"
+     src=""
+     style="
+        width:36px;
+        height:36px;
+        border-radius:50%;
+        object-fit:cover;
+        display:block;
+        margin:0 auto 4px auto;
+     ">
+
+            <h2 id="currentCharacter" style="
+    text-align:center;
+">
+    No character selected
+</h2>
+    <p id="characterMotto" style="
+    text-align:center;
+    color:#9ca3af;
+    margin:2px 0;
+    font-size:13px;
+">
+    No motto
+</p>
+
+            <p id="currentPersonaDisplay" style="
+    text-align:center;
+">
+    No Persona Selected
+</p>
+            <button id="chatMenuButton" style="
+    position:absolute;
+    top:15px;
+    right:15px;
+    width:auto !important;
+">
+    ⋮
+</button>
+            <div id="chatMenu" style="display:none;">
+    <button onclick="
+    document.getElementById('profilePage').style.display='block';
+    document.getElementById('chatPage').style.display='none';
+    showProfileTab('personas');
+">
+    Change Persona
+</button>
+
+    <button onclick="exportChat()">
+        Export Chat
+    </button>
+<button onclick="editCharacter(selectedCharacter)">
+    Edit Character
+</button>
+    <button onclick="clearChat()">
+        New Chat
+    </button>
+</div>
+        </div>
+        <input id="chatSearch" placeholder="Search messages..." oninput="renderMessages()" style="
+        width:100%;
+        margin-bottom:10px;
+    ">
+        <div id="chat">
+            <p>Select a character to start chatting.</p>
+        </div>
+
+
+        <br>
+    <div id="messageBar">
+<textarea
+    id="messageInput"
+    placeholder="Type a message..."
+    rows="1"
+    style="
+        background:#16131d;
+        color:white;
+        border:2px solid var(--theme-color);
+        border-radius:24px;
+        padding:14px 18px;
+        resize:none;
+        outline:none;
+        width:100%;
+        box-sizing:border-box;
+    "
+></textarea>
+        <button id="sendButton" onclick="sendMessage()">➤</button>
+    </div>
+    </div>
+
+    <div id="charactersPage" style="display:none; margin-top:20px">
+        <h2>Characters</h2>
+        <select id="categoryFilter" onchange="loadCharacters()">
+            <option value="all">All Categories</option>
+        </select>
+
+        <select id="sortCharacters" onchange="loadCharacters()">
+            <option value="favorites"> Favorites First</option>
+            <option value="az"> A-Z</option>
+            <option value="za"> Z-A</option>
+        </select>
+
+        <button onclick="exportCharacters()">
+            Export
+        </button>
+
+        <button onclick="document.getElementById('importCharacters').click()">
+            Import
+        </button>
+
+        <input type="file" id="importCharacters" accept=".json" style="display:none" onchange="importCharacters(event)">
+
+        <br><br>
+
+        <input id="searchInput" placeholder="Search characters..." oninput="loadCharacters()">
+        <div id="characterList"></div>
+    </div>
+
+    <div id="createPage" style="display:none; margin-top:20px">
+        <h2>Create Character</h2>
+        <input id="characterNameInput" placeholder="Character Name"><br><br>
+        <input id="characterMottoInput" placeholder="Character Motto"><br><br>
+        <input id="characterDescriptionInput" placeholder="Description"><br><br>
+        <input id="characterWelcomeInput" placeholder="Welcome Message"><br><br>
+        <input id="characterCategoryInput" placeholder="Category"><br><br>
+        <input type="file" id="characterImageInput" accept="image/*"><br><br>
+        <button onclick="createCharacter()">Save Character</button>
+        <h3>Theme Color</h3>
+
+        <input type="color" id="themeColorPicker" value="#9ca3af">
+
+        <br><br>
+
+        <button onclick="resetTheme()">
+            Reset Theme
+        </button>
+
+        <br><br>
+    </div>
+
+
+
+    <script>
+        let messages = {};
+        let selectedCharacter = null;
+        let characterImage = "";
+        let editingCharacter = null;
+        let editingPersona = null;
+
+        let currentPersona =
+            localStorage.getItem("currentPersona") || "";
+
+        let themeColor =
+            localStorage.getItem("themeColor") || "var(--theme-color)";
+
+        function applyTheme() {
+
+            document.documentElement.style.setProperty(
+                "--theme-color",
+                themeColor
+            );
+
+            const picker =
+                document.getElementById("themeColorPicker");
+
+            if (picker) {
+                picker.value = themeColor;
+            }
+            document.addEventListener("input", function (e) {
+
+                if (e.target.id === "themeColorPicker") {
+
+                    themeColor = e.target.value;
+
+                    localStorage.setItem(
+                        "themeColor",
+                        themeColor
+                    );
+
+                    applyTheme();
+                }
+            });
+        }
+
+        function selectCharacter(name) {
+
+    selectedCharacter = name;
+
+    let recent =
+        JSON.parse(localStorage.getItem("recentCharacters")) || [];
+
+    recent = recent.filter(c => c !== name);
+    recent.unshift(name);
+    recent = recent.slice(0, 5);
+
+    localStorage.setItem(
+        "recentCharacters",
+        JSON.stringify(recent)
+    );
+
+    localStorage.setItem(
+        "lastCharacter",
+        name
+    );
+
+    messages =
+        JSON.parse(localStorage.getItem("messages")) || {};
+
+    if (!messages[name]) {
+        messages[name] = [];
+    }
+
+    const characters =
+        JSON.parse(localStorage.getItem("characters")) || [];
+
+    const character =
+        characters.find(c => c.name === name) || {};
+        document.getElementById("chatCharacterImage").src =
+    character.image || "";
+    document.getElementById("characterMotto").textContent =
+    character.motto || "No motto";
+
+    document.getElementById("currentCharacter").textContent =
+        "Chatting with: " + name;
+
+    renderMessages();
+    showPage("chat");
+    loadRecentCharacters();
+}
+
+        function showPage(page) {
+
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("profilePage").style.display = "none";
+            document.getElementById("chatPage").style.display = "none";
+            document.getElementById("charactersPage").style.display = "none";
+            document.getElementById("createPage").style.display = "none";
+            document.getElementById("announcementsPage").style.display = "none";
+
+            if (page === "home")
+                document.getElementById("homePage").style.display = "block";
+
+            if (page === "profile")
+                document.getElementById("profilePage").style.display = "block";
+
+            if (page === "chat")
+                document.getElementById("chatPage").style.display = "block";
+
+            if (page === "characters")
+                document.getElementById("charactersPage").style.display = "block";
+
+            if (page === "create")
+                document.getElementById("createPage").style.display = "block";
+            if (page === "announcements")
+                document.getElementById("announcementsPage").style.display = "block";
+            document.querySelectorAll("#bottomNav button")
+    .forEach(btn => btn.classList.remove("nav-active"));
+
+if (page === "home")
+    document.getElementById("navHome")?.classList.add("nav-active");
+
+if (page === "characters")
+    document.getElementById("navCharacters")?.classList.add("nav-active");
+
+if (page === "create")
+    document.getElementById("navCreate")?.classList.add("nav-active");
+
+if (page === "announcements")
+    document.getElementById("navExplore")?.classList.add("nav-active");
+
+if (page === "profile")
+    document.getElementById("navProfile")?.classList.add("nav-active");
+        }
+        function scrollRecent(direction) {
+
+            const carousel =
+                document.getElementById("recentCharacters");
+
+            carousel.scrollBy({
+                left: direction * 300,
+                behavior: "smooth"
+            });
+        }
+        function loadRecentCharacters() {
+
+            const recent =
+                JSON.parse(localStorage.getItem("recentCharacters")) || [];
+
+            const container =
+                document.getElementById("recentCharacters");
+
+            if (!container) return;
+
+            container.innerHTML = "";
+
+            recent.forEach(name => {
+
+                const characters =
+                    JSON.parse(localStorage.getItem("characters")) || [];
+
+                const character =
+                    characters.find(c => c.name === name);
+
+                if (!character) return;
+
+                container.innerHTML += `
+        <div
+            onclick='selectCharacter(${JSON.stringify(character.name)})'
+            style="
+                min-width:250px;
+                background:#1e1e1e;
+                padding:12px;
+                margin:10px 0;
+                border-radius:12px;
+                border:2px solid var(--theme-color);
+                display:flex;
+                gap:12px;
+                cursor:pointer;
+            "
+        >
+            <img
+                src="${character.image || ""}"
+                style="
+                    width:80px;
+                    height:80px;
+                    border-radius:12px;
+                    object-fit:cover;
+                "
+            >
+
+            <div>
+                <h3 style="margin:0;color:#d9b8ff;">
+                    ${character.name}
+                </h3>
+
+                <p style="margin:5px 0;color:#d1d5db;">
+                    ${character.motto || ""}
+                </p>
+
+                <p style="margin:0;color:#9ca3af;">
+                    ${character.category || ""}
+                </p>
+            </div>
+        </div>
+    `;
+            });
+        }
+        function markAnnouncementsRead() {
+            document.getElementById("announcementCount").textContent = "";
+            document.getElementById("announcementCount").style.display = "none";
+            document.getElementById("allCaughtUp").style.display = "block";
+
+            localStorage.setItem("lastReadAnnouncement", latestAnnouncement);
+        }
+
+        const latestAnnouncement = "2";
+
+        window.onload = function () {
+
+            const badge = document.getElementById("announcementCount");
+
+            if (localStorage.getItem("lastReadAnnouncement") === latestAnnouncement) {
+
+                badge.textContent = "";
+                badge.style.display = "none";
+
+            } else {
+
+                badge.textContent = "1";
+                badge.style.display = "inline-block";
+
+            }
+            updateLatestAnnouncement();
+
+        };
+        function scrollRecommended(direction) {
+
+            document.getElementById("recommendedCharacters")
+                .scrollBy({
+                    left: direction * 300,
+                    behavior: "smooth"
+                });
+        }
+        function exportChat() {
+
+            if (!selectedCharacter) {
+                alert("Select a character first!");
+                return;
+            }
+
+            const chatData =
+                messages[selectedCharacter] || [];
+
+            const blob = new Blob(
+                [JSON.stringify(chatData, null, 2)],
+                { type: "application/json" }
+            );
+
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = selectedCharacter + "-chat.json";
+
+            a.click();
+
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById("messageInput").addEventListener("keydown", function (event) {
+
+            if (event.key === "Enter" && !event.shiftKey) {
+
+                event.preventDefault();
+
+                sendMessage();
+            }
+        });
+        function saveProfile() {
+
+            localStorage.setItem(
+                "displayName",
+                document.getElementById("displayName").value
+            );
+
+            localStorage.setItem(
+                "username",
+                document.getElementById("username").value
+            );
+
+            localStorage.setItem(
+                "profileBio",
+                document.getElementById("profileBio").value
+            );
+
+        }
+
+        const savedBio =
+            localStorage.getItem("profileBio");
+
+        if (savedBio) {
+            document.getElementById("profileBio").value =
+                savedBio;
+        }
+
+        const savedName =
+            localStorage.getItem("displayName");
+
+        if (savedName) {
+            document.getElementById("displayName").value =
+                savedName;
+        }
+
+        const savedUsername =
+            localStorage.getItem("username");
+
+        if (savedUsername) {
+            document.getElementById("username").value =
+                savedUsername;
+        }
+
+        function loadCharacters() {
+            const characters = JSON.parse(localStorage.getItem("characters")) || [];
+            const filter =
+                document.getElementById("categoryFilter");
+
+            if (filter) {
+
+                const categories = [
+                    ...new Set(
+                        characters
+                            .map(c => c.category)
+                            .filter(Boolean)
+                    )
+                ];
+
+                const currentSelection = filter.value;
+
+                filter.innerHTML =
+                    '<option value="all">All Categories</option>';
+
+                categories.forEach(category => {
+                    filter.innerHTML += `
+            <option value="${category}">
+                ${category}
+            </option>
+        `;
+                });
+
+                filter.value = currentSelection;
+            }
+            const search =
+                document.getElementById("searchInput")?.value.toLowerCase() || "";
+            const list = document.getElementById("characterList");
+            list.innerHTML = "";
+            characters
+                .filter(character => {
+
+                    const selectedCategory =
+                        document.getElementById("categoryFilter")?.value || "all";
+
+                    const matchesSearch =
+                        character.name.toLowerCase().includes(search);
+
+                    const matchesCategory =
+                        selectedCategory === "all" ||
+                        character.category === selectedCategory;
+
+                    return matchesSearch && matchesCategory;
+                })
+                .sort((a, b) => {
+                    const sortType = document.getElementById("sortCharacters").value;
+                    switch (sortType) {
+                        case "favorites":
+                            return (b.favorite || false) - (a.favorite || false);
+                        case "az":
+                            return a.name.localeCompare(b.name);
+                        case "za":
+                            return b.name.localeCompare(a.name);
+                        default:
+                            return 0;
+                    }
+                })
+                .forEach((character) => {
+                    list.innerHTML += `
+   <div
+   onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#7a4b94'"
+onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--theme-color)'" style="
+    background:#1e1e1e;
+    color:white;
+    padding:10px;
+    border-radius:20px;
+    margin-bottom:10px;
+    border:2px solid var(--theme-color);
+    box-shadow:0 0 20px rgba(80,44,96,0.4);
+    transition: all 0.2s ease;
+    width:100%;
+    box-sizing:border-box;
+">
+<div style="
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+">
+<img src="${character.image || ''}" style="
+    width:80px;
+    height:100px;
+    border-radius:16px;
+    object-fit:cover;
+    flex-shrink:0;
+">
+<div style="
+    flex:1;
+">
+
+    ${character.favorite ? `
+    <div style="
+        display:inline-block;
+        background:var(--theme-color);
+        color:white;
+        padding:4px 10px;
+        border-radius:999px;
+        font-size:12px;
+        margin-bottom:8px;
+    ">
+        ⭐ Favorite
+    </div>
+    ` : ""}
+
+    <h3 style="
+        color:#d9b8ff;
+        margin:0;
+        letter-spacing:2px;
+        text-shadow:0 0 8px var(--theme-color);
+        font-size:16px;
+    ">
+        ${character.name}
+    </h3>
+                <p style="color:#d1d5db;margin:5px 0">${character.motto || ""}</p>
+                <p style="color:#60a5fa;margin:5px 0">
+     ★ ${character.category || "Uncategorized"}
+</p>
+                <button onclick='selectCharacter(${JSON.stringify(character.name)})'>Chat</button>
+                <button onclick='editCharacter(${JSON.stringify(character.name)})' style="margin-left:8px">
+    Edit
+</button>
+<button onclick="duplicateCharacter('${character.name}')">
+    Duplicate
+</button>
+<button onclick='toggleFavorite(${JSON.stringify(character.name)})'>
+    ${character.favorite ? " Unfavorite" : "Favorite"}
+</button>
+                <button onclick='deleteCharacter(${JSON.stringify(character.name)})' style="margin-left:8px">Delete</button>
+            </div>
+        </div>
+    </div>`;
+                });
+        }
+
+        function createCharacter() {
+            const name = document.getElementById("characterNameInput").value;
+            const motto = document.getElementById("characterMottoInput").value;
+            const description = document.getElementById("characterDescriptionInput").value;
+            const welcome = document.getElementById("characterWelcomeInput").value;
+            const category =
+                document.getElementById("characterCategoryInput").value;
+            const image = characterImage;
+            if (!name) { alert('Name required'); return; }
+            const characters = JSON.parse(localStorage.getItem("characters")) || [];
+            if (editingCharacter) {
+
+                const index =
+                    characters.findIndex(c => c.name === editingCharacter);
+
+                characters[index] = {
+                    name,
+                    motto,
+                    description,
+                    welcomeMessage: welcome,
+                    image,
+                    category
+                };
+                editingCharacter = null;
+
+            } else {
+
+                characters.push({
+                    name,
+                    motto,
+                    description,
+                    welcomeMessage: welcome,
+                    image,
+                    favorite: false,
+                    category
+                });
+
+            }
+            localStorage.setItem("characters", JSON.stringify(characters));
+
+            loadCharacters();
+            loadFeaturedCharacters();
+
+            alert("Character saved!");
+        }
+
+        document.getElementById("characterImageInput").addEventListener("change", function (event) {
+            const file = event.target.files[0]; if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) { characterImage = e.target.result; };
+            reader.readAsDataURL(file);
+        });
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+
+            if (!input.value) return;
+
+            if (!selectedCharacter) {
+                alert("Select a character first!");
+                return;
+            }
+
+            messages[selectedCharacter].push({
+                sender: "You",
+                text: input.value,
+                time: new Date().toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                })
+            });
+
+            localStorage.setItem(
+                "messages",
+                JSON.stringify(messages)
+            );
+            console.log(localStorage.getItem("messages"));
+
+            renderMessages();
+
+            input.value = "";
+        }
+        function scrollCarousel(direction) {
+
+            const carousel =
+                document.getElementById("featuredCharacters");
+
+            carousel.scrollBy({
+                left: direction * 300,
+                behavior: "smooth"
+            });
+        }
+        function scrollTrending(direction) {
+
+            document.getElementById("trendingCharacters")
+                .scrollBy({
+                    left: direction * 300,
+                    behavior: "smooth"
+                });
+        }
+
+        function renderMessages() {
+
+            const chat =
+                document.getElementById("chat");
+
+            chat.innerHTML = "";
+
+            if (!selectedCharacter) return;
+            const search =
+                document.getElementById("chatSearch")
+                    ?.value.toLowerCase() || "";
+
+            messages[selectedCharacter]
+                .filter(message =>
+                    message.text.toLowerCase().includes(search)
+                )
+                .forEach(message => {
+
+                    const isYou = message.sender === "You";
+
+                    chat.innerHTML += `
+<div style="
+    display:flex;
+    justify-content:${isYou ? "flex-end" : "flex-start"};
+    margin:8px 0;
+">
+    <div style="
+        background:${isYou ? "var(--theme-color)" : "#1e1e1e"};
+        color:white;
+        padding:12px 16px;
+        border-radius:18px;
+        box-shadow:0 0 10px rgba(0,0,0,0.2);
+line-height:1.5;
+        max-width:70%;
+    ">
+        <strong>${message.sender}:</strong>
+        ${message.text}
+
+        <span style="
+            font-size:12px;
+            color:#d1d5db;
+            margin-left:8px;
+        ">
+            ${message.time || ""}
+        </span>
+    </div>
+</div>
+`;
+
+                });
+            chat.scrollTop = chat.scrollHeight;
+        }
+        function editCharacter(name) {
+
+            editingCharacter = name;
+
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+
+            const character =
+                characters.find(c => c.name === name);
+
+            if (!character) return;
+
+            document.getElementById("characterNameInput").value =
+                character.name;
+
+            document.getElementById("characterMottoInput").value =
+                character.motto || "";
+
+            document.getElementById("characterDescriptionInput").value =
+                character.description || "";
+
+            document.getElementById("characterWelcomeInput").value =
+                character.welcomeMessage || "";
+
+            characterImage =
+                character.image || "";
+
+            showPage("create");
+        }
+        function toggleFavorite(name) {
+
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+
+            const character =
+                characters.find(c => c.name === name);
+
+            if (!character) return;
+
+            character.favorite = !character.favorite;
+
+            localStorage.setItem(
+                "characters",
+                JSON.stringify(characters)
+            );
+
+            loadCharacters();
+        }
+        function clearChat() {
+
+            if (!selectedCharacter) {
+                alert("Select a character first!");
+                return;
+            }
+
+            if (!confirm("Clear this chat?")) {
+                return;
+            }
+
+            messages[selectedCharacter] = [];
+
+            localStorage.setItem(
+                "messages",
+                JSON.stringify(messages)
+            );
+
+            renderMessages();
+        }
+        function deleteCharacter(name) {
+            if (!name) { alert('No character selected'); return; }
+            if (!confirm(`Delete ${name}?`)) return;
+            const characters = JSON.parse(localStorage.getItem("characters")) || [];
+            const updatedCharacters = characters.filter(c => c.name != name);
+            localStorage.setItem("characters", JSON.stringify(updatedCharacters));
+            if (selectedCharacter === name) { selectedCharacter = null; document.getElementById('currentCharacter').textContent = 'No character selected'; }
+            loadCharacters();
+        }
+        document
+            .getElementById("themeColorPicker")
+            .addEventListener("input", function () {
+
+                themeColor = this.value;
+
+                localStorage.setItem(
+                    "themeColor",
+                    themeColor
+                );
+
+                applyTheme();
+            });
+        // initialize
+        const lastCharacter =
+            localStorage.getItem("lastCharacter");
+
+        if (lastCharacter) {
+            selectCharacter(lastCharacter);
+        }
+        function showProfileTab(tab) {
+
+            const content =
+                document.getElementById("profileTabContent");
+
+            if (!content) return;
+
+            if (tab === "characters") {
+
+                content.innerHTML = `
+            <div id="characterList"></div>
+        `;
+
+                loadCharacters();
+                return;
+            }
+
+            if (tab === "liked") {
+
+                const characters =
+                    JSON.parse(localStorage.getItem("characters")) || [];
+
+                const liked =
+                    characters.filter(c => c.favorite);
+
+                content.innerHTML = "";
+
+                if (liked.length === 0) {
+                    content.innerHTML = `
+                <p style="color:#9ca3af;text-align:center;">
+                    No liked characters yet.
+                </p>
+            `;
+                    return;
+                }
+
+                liked.forEach(character => {
+
+                    content.innerHTML += `
+                <div style="
+                    max-width:500px;
+                    margin:10px auto;
+                    background:#16131d;
+                    border:2px solid var(--theme-color);
+                    border-radius:18px;
+                    padding:15px;
+                ">
+                    <h3 style="margin:0;color:#c084fc;">
+                        ${character.name}
+                    </h3>
+
+                    <p style="color:#9ca3af;">
+                        ${character.motto || "No motto"}
+                    </p>
+
+                    <button onclick="selectCharacter('${character.name}')">
+                        Chat
+                    </button>
+                </div>
+            `;
+                });
+
+                return;
+            }
+
+            if (tab === "personas") {
+
+                const personas =
+                    JSON.parse(localStorage.getItem("personas")) || [];
+                const existingSearch =
+                    document.getElementById("personaSearch");
+
+                const search =
+                    existingSearch
+                        ? existingSearch.value.toLowerCase()
+                        : "";
+
+                const filteredPersonas =
+                    personas.filter(persona =>
+                        persona.name.toLowerCase().includes(search) ||
+                        persona.bio.toLowerCase().includes(search)
+                    );
+
+                content.innerHTML = `
+    <div style="text-align:center;">
+
+        <input
+    id="personaSearch"
+    placeholder="Search personas..."
+    oninput="filterPersonas()"
+    style="
+        width:80%;
+        max-width:300px;
+        padding:8px;
+        margin-bottom:10px;
+    "
+>
+
+        <br>
+
+        <button onclick="showCreatePersona()">
+            + Create Persona
+        </button>
+
+    </div>
+`;
+
+                if (filteredPersonas.length === 0) {
+
+                    content.innerHTML += `
+                <p style="color:#9ca3af;text-align:center;margin-top:20px;">
+                    No personas yet.
+                </p>
+            `;
+                    return;
+                }
+
+                filteredPersonas.forEach(persona => {
+
+                    const borderColor =
+                        currentPersona === persona.name
+                            ? "#c084fc"
+                            : "var(--theme-color)";
+
+                    content.innerHTML += `
+                <div
+    class="persona-card"
+    onclick="selectPersona('${persona.name}')"
+                    style="
+                        max-width:500px;
+                        margin:10px auto;
+                        background:#16131d;
+                        border:2px solid ${borderColor};
+                        border-radius:18px;
+                        padding:15px;
+                        cursor:pointer;
+                    ">
+                     ${persona.image ? `
+<img
+    src="${persona.image}"
+    style="
+        width:80px;
+        height:80px;
+        border-radius:50%;
+        object-fit:cover;
+        display:block;
+        margin:0 auto 10px auto;
+    "
+>
+` : ''}
+
+                    <h3 style="margin:0;color:#c084fc;">
+                        ${persona.name}
+                    </h3>
+
+                    <p style="color:#9ca3af;margin-top:8px;">
+                        ${persona.bio}
+                    </p>
+
+                    ${persona.default
+                            ? '<p style="color:#60a5fa;">★ Default Persona</p>'
+                            : ''
+                        }
+<button
+    onclick="event.stopPropagation(); editPersona('${persona.name}')"
+    style="
+        margin-top:10px;
+        padding:6px 12px;
+    ">
+    Edit
+</button>
+<button
+    onclick="event.stopPropagation(); deletePersona('${persona.name}')"
+    style="
+        margin-top:10px;
+        margin-left:8px;
+        padding:6px 12px;
+        background:#76488e;
+    ">
+    Delete
+</button>
+                </div>
+            `;
+                });
+
+                return;
+            }
+            if (tab === "settings") {
+
+                content.innerHTML = `
+            <h3>Theme Color</h3>
+
+            <input
+                type="color"
+                id="themeColorPicker"
+                value="#9ca3af"
+            >
+
+            <br><br>
+
+            <button onclick="resetTheme()">
+                Reset Theme
+            </button>
+            <button onclick="exportAllData()">
+            Export All Data
+        </button>
+
+        <button onclick="document.getElementById('importBackup').click()">
+            Import Backup
+        </button>
+
+        <input
+            type="file"
+            id="importBackup"
+            accept=".json"
+            style="display:none"
+            onchange="importBackup(event)"
+        >
+        <br><br>
+
+<h3>Appearance</h3>
+
+<button onclick="setTheme('dark')">
+     Dark
+</button>
+
+<button onclick="setTheme('light')">
+     Light
+</button>
+        `;
+
+                return;
+            }
+        }
+        function filterPersonas() {
+
+            const search =
+                document.getElementById("personaSearch")
+                    .value
+                    .toLowerCase();
+
+            const cards =
+                document.querySelectorAll(".persona-card");
+
+            cards.forEach(card => {
+
+                const text =
+                    card.textContent.toLowerCase();
+
+                card.style.display =
+                    text.includes(search)
+                        ? "block"
+                        : "none";
+            });
+        }
+
+        function showAnnouncements() {
+            alert(`
+🕭 Lorely News
+
+• Welcome to Lorely!
+• New homepage redesign
+• Trending section added
+    `);
+        }
+        function resetTheme() {
+            themeColor = "#8b5cf6";
+
+            localStorage.setItem(
+                "themeColor",
+                themeColor
+            );
+
+            applyTheme();
+        }
+        function showCreatePersona() {
+
+            const content =
+                document.getElementById("profileTabContent");
+
+            content.innerHTML = `
+        <div style="
+            max-width:500px;
+            margin:0 auto;
+            text-align:left;
+        ">
+
+            <h2>Persona</h2>
+
+            <p style="color:#9ca3af;">
+                Characters remember your persona information
+                to improve conversations.
+            </p>
+
+            <p style="color:#9ca3af;">
+                Create multiple personas and switch between them.
+            </p>
+
+            <label>Display Name</label>
+
+            <input
+    <input
+    type="file"
+    id="personaImage"
+    accept="image/*"
+    style="
+        width:100%;
+        margin-top:10px;
+    "
+>
+
+            <input
+                id="personaName"
+                maxlength="20"
+                style="
+                    width:100%;
+                    margin-top:5px;
+                    padding:10px;
+                "
+            >
+
+            <p id="personaNameCount">
+                0/20
+            </p>
+
+            <label>Background</label>
+
+            <textarea
+                id="personaBio"
+                maxlength="750"
+                style="
+                    width:100%;
+                    height:120px;
+                    margin-top:5px;
+                    padding:10px;
+                "
+            ></textarea>
+
+            <p id="personaBioCount">
+                0/750
+            </p>
+
+            <label>
+                <input type="checkbox"
+                       id="defaultPersona">
+                Make default for new chats
+            </label>
+
+            <br><br>
+
+            <button onclick="savePersona()">
+                Save Persona
+            </button>
+
+        </div>
+    `;
+        }
+        function editPersona(name) {
+
+            editingPersona = name;
+
+            const personas =
+                JSON.parse(localStorage.getItem("personas")) || [];
+
+            const persona =
+                personas.find(p => p.name === name);
+
+            if (!persona) return;
+
+            showCreatePersona();
+
+            document.getElementById("personaName").value =
+                persona.name;
+
+            document.getElementById("personaBio").value =
+                persona.bio || "";
+
+            document.getElementById("defaultPersona").checked =
+                persona.default || false;
+        }
+        function deletePersona(name) {
+
+            if (!confirm(`Delete "${name}"?`)) {
+                return;
+            }
+
+            let personas =
+                JSON.parse(localStorage.getItem("personas")) || [];
+
+            personas =
+                personas.filter(persona => persona.name !== name);
+
+            localStorage.setItem(
+                "personas",
+                JSON.stringify(personas)
+            );
+
+            if (currentPersona === name) {
+
+                currentPersona = "";
+
+                localStorage.setItem(
+                    "currentPersona",
+                    ""
+                );
+            }
+
+            showProfileTab("personas");
+        }
+        function finishSavingPersona(
+            name, bio, image, isDefault) {
+
+            const personas =
+                JSON.parse(localStorage.getItem("personas")) || [];
+
+            if (editingPersona) {
+
+                const persona =
+                    personas.find(p => p.name === editingPersona);
+
+                if (persona) {
+                    persona.name = name;
+                    persona.bio = bio;
+                    persona.image = image;
+                    persona.default = isDefault;
+                }
+
+                editingPersona = null;
+
+            } else {
+
+                personas.push({
+                    name,
+                    bio,
+                    image,
+                    default: isDefault
+                });
+            }
+
+            localStorage.setItem(
+                "personas",
+                JSON.stringify(personas)
+            );
+
+            alert("Persona saved!");
+            showProfileTab("personas");
+        }
+        document.getElementById("chatMenuButton")
+            .onclick = function () {
+
+                const menu =
+                    document.getElementById("chatMenu");
+
+                if (menu.style.display === "none") {
+                    menu.style.display = "block";
+                } else {
+                    menu.style.display = "none";
+                }
+            };
+        function savePersona() {
+
+            const name =
+                document.getElementById("personaName").value;
+
+            const bio =
+                document.getElementById("personaBio").value;
+
+            const isDefault =
+                document.getElementById("defaultPersona").checked;
+
+            const imageInput =
+                document.getElementById("personaImage");
+            let image = "";
+
+            if (imageInput.files.length > 0) {
+
+                const file = imageInput.files[0];
+
+                const reader = new FileReader();
+
+                reader.onload = function () {
+
+                    image = reader.result;
+
+                    finishSavingPersona(
+                        name,
+                        bio,
+                        image,
+                        isDefault
+                    );
+                };
+                reader.readAsDataURL(file);
+
+            } else {
+
+                finishSavingPersona(
+                    name,
+                    bio,
+                    image,
+                    isDefault
+                );
+            }
+        }
+        function selectPersona(name) {
+
+            currentPersona = name;
+
+
+            localStorage.setItem(
+                "currentPersona",
+                name
+            );
+
+            document.getElementById(
+                "currentPersonaDisplay"
+            ).textContent =
+                "Current Persona: " + name;
+
+            showProfileTab("personas");
+        }
+        function changeProfilePicture(event) {
+
+            const file = event.target.files[0];
+
+            if (!file) return;
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+
+                document.getElementById("profilePicture").src =
+                    e.target.result;
+
+                document.getElementById("sidebarProfilePicture").src =
+                    e.target.result;
+
+                localStorage.setItem(
+                    "profilePicture",
+                    e.target.result
+                );
+
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        window.addEventListener("load", () => {
+
+            const savedPicture =
+                localStorage.getItem("profilePicture");
+
+            if (savedPicture) {
+
+                document.getElementById("profilePicture").src =
+                    savedPicture;
+                document.getElementById("sidebarProfilePicture").src =
+                    savedPicture;
+                    document.getElementById("profileNavImage").src =
+        savedPicture;
+        localStorage.setItem(
+    "profilePicture",
+    e.target.result
+);
+
+            }
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+
+            document.getElementById("charactersCount").textContent =
+                characters.length;
+
+            if (!localStorage.getItem("followers")) {
+                localStorage.setItem("followers", "0");
+            }
+
+            if (!localStorage.getItem("following")) {
+                localStorage.setItem("following", "0");
+            }
+
+            if (!localStorage.getItem("interactions")) {
+                localStorage.setItem("interactions", "0");
+            }
+
+            const followersCount =
+                document.getElementById("followersCount");
+
+            if (followersCount) {
+                followersCount.textContent =
+                    localStorage.getItem("followers");
+            }
+
+            const followingCount =
+                document.getElementById("followingCount");
+
+            if (followingCount) {
+                followingCount.textContent =
+                    localStorage.getItem("following");
+            }
+
+            const interactionsCount =
+                document.getElementById("interactionsCount");
+
+            if (interactionsCount) {
+                interactionsCount.textContent =
+                    localStorage.getItem("interactions");
+            }
+        });
+        applyTheme();
+        loadCharacters();
+        loadFeaturedCharacters();
+        loadTrendingCharacters();
+        loadRecentCharacters();
+        loadRecommendedCharacters();
+        renderMessages();
+        function loadFeaturedCharacters() {
+
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+            const search =
+                document.getElementById("homeSearch")?.value.toLowerCase() || "";
+
+            const featured =
+                document.getElementById("featuredCharacters");
+
+            if (!featured) return;
+            featured.innerHTML = "";
+
+            characters
+                .filter(character =>
+                    character.name.toLowerCase().includes(search)
+                )
+                .forEach(character => {
+
+                    featured.innerHTML += `
+    <div
+        onmouseover="this.style.transform='translateY(-4px)'"
+        onmouseout="this.style.transform='translateY(0)'"
+        onclick='selectCharacter("${character.name}"); showPage("chat");'
+        style="
+            min-width:280px;
+            margin:10px;
+            padding:12px;
+            background:#1e1e1e;
+            border-radius:18px;
+            box-shadow:0 0 12px rgba(0,0,0,0.25);
+            transition:all 0.2s ease;
+            cursor:pointer;
+            border:2px solid var(--theme-color);
+
+            display:flex;
+            align-items:center;
+            gap:12px;
+            text-align:left;
+        "
+    >
+        <img
+            src="${character.image || ''}"
+            style="
+                width:90px;
+                height:90px;
+                border-radius:12px;
+                object-fit:cover;
+                flex-shrink:0;
+            "
+        >
+
+        <div>
+            <p style="
+                font-weight:bold;
+                margin:0 0 5px 0;
+            ">
+                ${character.name}
+            </p>
+
+            <p style="
+                font-size:12px;
+                color:#d1d5db;
+                margin:0 0 5px 0;
+            ">
+                ${character.motto || ""}
+            </p>
+
+            <p style="
+                font-size:11px;
+                color:#9ca3af;
+                margin:0;
+            ">
+                ${character.category || ""}
+            </p>
+        </div>
+    </div>
+`;
+                });
+        }
+        function loadTrendingCharacters() {
+
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+
+            const messages =
+                JSON.parse(localStorage.getItem("messages")) || {};
+
+            const trending =
+                document.getElementById("trendingCharacters");
+
+            if (!trending) return;
+
+            trending.innerHTML = "";
+
+            const sortedCharacters = [...characters].sort((a, b) => {
+
+                const aCount =
+                    messages[a.name]?.length || 0;
+
+                const bCount =
+                    messages[b.name]?.length || 0;
+
+                return bCount - aCount;
+            });
+
+            sortedCharacters.slice(0, 10).forEach(character => {
+
+                trending.innerHTML += `
+        <div
+            onclick='selectCharacter("${character.name}"); showPage("chat");'
+            style="
+                min-width:280px;
+                margin:10px;
+                padding:12px;
+                background:#1e1e1e;
+                border-radius:18px;
+                border:2px solid var(--theme-color);
+                cursor:pointer;
+                display:flex;
+                gap:12px;
+                align-items:center;
+            "
+        >
+            <img
+                src="${character.image || ''}"
+                style="
+                    width:90px;
+                    height:90px;
+                    border-radius:12px;
+                    object-fit:cover;
+                "
+            >
+
+            <div>
+                <p style="font-weight:bold;margin:0;">
+                    ${character.name}
+                </p>
+
+                <p style="
+                    color:#d1d5db;
+                    font-size:12px;
+                    margin:5px 0;
+                ">
+                    ${character.motto || ""}
+                </p>
+
+                <p style="
+                    color:#9ca3af;
+                    font-size:11px;
+                    margin:0;
+                ">
+                    ঌ ${messages[character.name]?.length || 0
+                    } messages
+                </p>
+            </div>
+        </div>
+        `;
+            });
+        }
+        function updateLatestAnnouncement() {
+
+    const title = document.getElementById("latestAnnouncementTitle");
+    const summary = document.getElementById("latestAnnouncementSummary");
+
+    document.getElementById("latestVersion").textContent =
+        title.textContent + " Released";
+
+    document.getElementById("latestDescription").textContent =
+        summary.textContent;
+
+}
+        function loadRecommendedCharacters() {
+
+            const characters =
+                JSON.parse(localStorage.getItem("characters")) || [];
+
+            const recent =
+                JSON.parse(localStorage.getItem("recentCharacters")) || [];
+
+            const recommended =
+                document.getElementById("recommendedCharacters");
+
+            if (!recommended) return;
+
+            recommended.innerHTML = "";
+
+            const filtered =
+                characters.filter(character =>
+                    !recent.includes(character.name)
+                );
+
+            const finalCharacters =
+                filtered.length > 0 ? filtered : characters;
+
+            finalCharacters
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 10)
+                .forEach(character => {
+
+                    recommended.innerHTML += `
+        <div
+            onclick='selectCharacter("${character.name}"); showPage("chat");'
+            style="
+                min-width:280px;
+                margin:10px;
+                padding:12px;
+                background:#1e1e1e;
+                border-radius:18px;
+                border:2px solid var(--theme-color);
+                cursor:pointer;
+                display:flex;
+                gap:12px;
+                align-items:center;
+            "
+        >
+            <img
+                src="${character.image || ''}"
+                style="
+                    width:90px;
+                    height:90px;
+                    border-radius:12px;
+                    object-fit:cover;
+                "
+            >
+
+            <div>
+                <p style="font-weight:bold;margin:0;">
+                    ${character.name}
+                </p>
+
+                <p style="
+                    color:#d1d5db;
+                    font-size:12px;
+                    margin:5px 0;
+                ">
+                    ${character.motto || ""}
+                </p>
+
+                <p style="
+                    color:#9ca3af;
+                    font-size:11px;
+                    margin:0;
+                ">
+                    ★ Recommended for you
+                </p>
+            </div>
+        </div>
+        `;
+                });
+        }
+        function duplicateCharacter(name) {
+            console.log("Duplicate clicked!");
+            const characters = JSON.parse(localStorage.getItem("characters")) || [];
+            const original = characters.find(c => c.name === name);
+            if (!original) return;
+
+            let copyName = original.name + " Copy";
+            let counter = 2;
+
+            while (characters.some(c => c.name === copyName)) {
+                copyName = original.name + " Copy " + counter;
+                counter++;
+            }
+
+            const copy = { ...original, name: copyName };
+            characters.push(copy);
+            localStorage.setItem("characters", JSON.stringify(characters));
+            showCharacters();
+        }
+
+        function exportCharacters() {
+            const characters = JSON.parse(localStorage.getItem("characters")) || [];
+            const blob = new Blob([JSON.stringify(characters, null, 2)], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "lorely-characters.json";
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function exportAllData() {
+            const backup = {
+                characters: JSON.parse(localStorage.getItem("characters")) || [],
+                messages: JSON.parse(localStorage.getItem("messages")) || {},
+                personas: JSON.parse(localStorage.getItem("personas")) || []
+            };
+            const blob = new Blob([JSON.stringify(backup, null, 2)], { type: "application/json" });
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            const date = new Date()
+    .toISOString()
+    .slice(0, 19)
+    .replace(/:/g, "-");
+
+a.download = `lorely-backup-${date}.json`;
+            a.click();
+        }
+
+        function importBackup(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const backup = JSON.parse(e.target.result);
+                localStorage.setItem("characters", JSON.stringify(backup.characters || []));
+                localStorage.setItem("messages", JSON.stringify(backup.messages || {}));
+                localStorage.setItem("personas", JSON.stringify(backup.personas || []));
+                alert("Backup imported!");
+                location.reload();
+            };
+            reader.readAsText(file);
+        }
+
+        function setTheme(theme) {
+            localStorage.setItem("theme", theme);
+            if (theme === "light") {
+                document.body.style.background = "#f5f5f5";
+                document.body.style.color = "#111";
+            } else {
+                document.body.style.background = "#0f0f0f";
+                document.body.style.color = "#fff";
+            }
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem("theme") || "dark";
+        setTheme(savedTheme);
+
+        function importCharacters(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function () {
+                try {
+                    const imported = JSON.parse(reader.result);
+                    const characters = JSON.parse(localStorage.getItem("characters")) || [];
+                    const updated = [...characters, ...imported];
+                    localStorage.setItem("characters", JSON.stringify(updated));
+                    loadCharacters();
+                    alert("Characters imported!");
+                } catch (error) {
+                    alert("Invalid character file.");
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById("loadingScreen");
+                if (loadingScreen) loadingScreen.style.display = "none";
+            }, 5000);
+        });
+
+        const loadingMessages = [
+            "Loading stories... ⋆｡",
+            "Gathering souls... ☾",
+            "Consulting the Fates... ✧",
+            "The characters are waking up... ⋆",
+            "Opening the archives... ❀",
+            "Brewing chaos... ✦",
+            "Trying not to summon Luke Castellan... ⟡"
+        ];
+
+        let messageIndex = 0;
+
+        setInterval(() => {
+            const text = document.getElementById("loadingText");
+            if (text) {
+                text.textContent = loadingMessages[messageIndex % loadingMessages.length];
+                messageIndex++;
+            }
+        }, 1000);
+
+        window.addEventListener("load", () => {
+            const personaDisplay = document.getElementById("currentPersonaDisplay");
+            if (personaDisplay && typeof currentPersona !== "undefined") {
+                personaDisplay.textContent = "Current Persona: " + currentPersona;
+            }
+        });
+    </script>
+    <div id="bottomNav">
+    <button onclick="showPage('home')">🏠︎</button>
+    <button onclick="showPage('characters')">💬</button>
+    <button onclick="showPage('create')">+</button>
+    <button onclick="showPage('explore')">⏲</button>
+    <button onclick="showPage('profile')" id="profileNavButton">
+    <img id="profileNavImage" src="" alt="Profile">
+</button>
+</div>
+</body>
+</html>
