@@ -2647,6 +2647,7 @@ line-height:1.5;
 
 a.download = `lorely-backup-${date}.json`;
             a.click();
+            alert("Backup downloaded successfully!");
         }
 
         function importBackup(event) {
@@ -2701,11 +2702,16 @@ a.download = `lorely-backup-${date}.json`;
         }
 
         window.addEventListener("load", () => {
-            setTimeout(() => {
-                const loadingScreen = document.getElementById("loadingScreen");
-                if (loadingScreen) loadingScreen.style.display = "none";
-            }, 5000);
-        });
+    setTimeout(() => {
+        const loadingScreen = document.getElementById("loadingScreen");
+
+        if (loadingScreen) {
+            loadingScreen.style.display = "none";
+        }
+
+        showPage("home");
+    }, 5000);
+});
 
         const loadingMessages = [
             "Loading stories... ⋆｡",
