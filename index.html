@@ -1156,9 +1156,20 @@ padding: 14px 18px;
             });
         }
 
-        function selectCharacter(name) {
+        async function selectCharacter(name) {
+            const snapshot = await getDoc(
+                doc(db, "characters", name)
+            );
 
-    selectedCharacter = name;
+            console.log(snapshot.exists());
+            console.log(snapshot.data());
+
+            let character = snapshot.data();
+            console.log(name);
+            console.log(snapshot.exists());
+console.log(character);
+
+            selectedCharacter = character.name;
 
     let recent =
         JSON.parse(localStorage.getItem("recentCharacters")) || [];
@@ -1184,19 +1195,36 @@ padding: 14px 18px;
         messages[name] = [];
     }
 
-    const characters =
-        JSON.parse(localStorage.getItem("characters")) || [];
-
-    const character =
-        characters.find(c => c.name === name) || {};
         document.getElementById("chatCharacterImage").src =
     character.image || "";
     document.getElementById("characterMotto").textContent =
     character.motto || "No motto";
 
     document.getElementById("currentCharacter").textContent =
-        "Chatting with: " + name;
+    "Chatting with: " + character.name;
 
+    if (!messages[character.name]) {
+    messages[character.name] = [];
+}
+
+if (
+    messages[character.name].length === 0 &&
+    character.welcomeMessage
+) {
+    messages[character.name].push({
+        sender: character.name,
+        text: character.welcomeMessage,
+        time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+    });
+
+    localStorage.setItem(
+        "messages",
+        JSON.stringify(messages)
+    );
+}
     renderMessages();
     showPage("chat");
     loadRecentCharacters();
@@ -1284,7 +1312,7 @@ if (page === "profile")
 
                 container.innerHTML += `
         <div
-            onclick='selectCharacter(${JSON.stringify(character.name)})'
+           onclick='selectCharacter(${JSON.stringify(character.id)})'
             style="
                 min-width:250px;
                 background:#1e1e1e;
@@ -1443,7 +1471,10 @@ if (user) {
 
     const snapshot = await getDocs(q);
 
-    characters = snapshot.docs.map(doc => doc.data());
+    characters = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+}));
 }
 
     const filter =
@@ -1507,6 +1538,7 @@ if (user) {
                     }
                 })
                 .forEach((character) => {
+                    console.log(character.id, character.name);
                     list.innerHTML += `
    <div
    onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#7a4b94'"
@@ -1565,7 +1597,9 @@ onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--
                 <p style="color:#60a5fa;margin:5px 0">
      ★ ${character.category || "Uncategorized"}
 </p>
-                <button onclick='selectCharacter(${JSON.stringify(character.name)})'>Chat</button>
+                <button onclick='selectCharacter(${JSON.stringify(character.id)}); showPage("chat");'>
+    Chat
+</button>
                 <button onclick='editCharacter(${JSON.stringify(character.name)})' style="margin-left:8px">
     Edit
 </button>
@@ -1642,8 +1676,9 @@ if (user) {
         );
     }
 
+    const characterId = user.uid + "_" + name;
     await setDoc(
-        doc(db, "characters", user.uid + "_" + name),
+        doc(db, "characters", characterId),
         {
             owner: user.uid,
             name,
@@ -2040,10 +2075,9 @@ line-height:1.5;
                         ${character.motto || "No motto"}
                     </p>
 
-                    <button onclick="selectCharacter('${character.name}')">
-                        Chat
-                    </button>
-                </div>
+                    <button onclick="selectCharacter('${character.id}')">
+    Chat
+</button>
             `;
                 });
 
@@ -2610,7 +2644,10 @@ line-height:1.5;
 
 const snapshot = await getDocs(q);
 
-const characters = snapshot.docs.map(doc => doc.data());
+const characters = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+}));
             const search =
                 document.getElementById("homeSearch")?.value.toLowerCase() || "";
 
@@ -2630,7 +2667,7 @@ const characters = snapshot.docs.map(doc => doc.data());
     <div
         onmouseover="this.style.transform='translateY(-4px)'"
         onmouseout="this.style.transform='translateY(0)'"
-        onclick='selectCharacter("${character.name}"); showPage("chat");'
+        onclick='selectCharacter("${character.id}"); showPage("chat");'
         style="
             min-width:280px;
             margin:10px;
@@ -2694,7 +2731,10 @@ const characters = snapshot.docs.map(doc => doc.data());
 );
 
 const snapshot = await getDocs(q);
-const characters = snapshot.docs.map(doc => doc.data());
+const characters = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data()
+}));
 
             const messages =
                 JSON.parse(localStorage.getItem("messages")) || {};
@@ -2721,7 +2761,7 @@ const characters = snapshot.docs.map(doc => doc.data());
 
                 trending.innerHTML += `
         <div
-            onclick='selectCharacter("${character.name}"); showPage("chat");'
+           onclick='selectCharacter("${character.id}"); showPage("chat");'
             style="
                 min-width:280px;
                 margin:10px;
@@ -2813,7 +2853,7 @@ const characters = snapshot.docs.map(doc => doc.data());
 
                     recommended.innerHTML += `
         <div
-            onclick='selectCharacter("${character.name}"); showPage("chat");'
+            onclick='selectCharacter("${character.id}"); showPage("chat");'
             style="
                 min-width:280px;
                 margin:10px;
