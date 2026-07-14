@@ -2,10 +2,138 @@
 <html>
 
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lorely</title>
+    <link rel="icon" type="image/png" sizes="512x512" href="logo.png">
     <style>
+        .field-help{
+    color:#9ca3af;
+    font-size:12px;
+    margin-top:4px;
+    margin-bottom:8px;
+}
+
+#nameCount{
+    color:#9ca3af;
+    font-size:14px;
+    text-align:right;
+    margin-top:2px;
+    margin-bottom:15px;
+}
+#characterNameInput{
+    width:100%;
+    font-size:16px;
+}
+#characterDescriptionInput{
+    width:100%;
+    min-height:140px;
+    font-size:15px;
+    resize:vertical;
+}
+
+#descriptionCount{
+    color:#9ca3af;
+    font-size:14px;
+    text-align:right;
+    margin-top:2px;
+    margin-bottom:15px;
+}
+#characterMottoInput{
+    width:100%;
+    font-size:15px;
+}
+
+#mottoCount{
+    color:#9ca3af;
+    font-size:14px;
+    text-align:right;
+    margin-top:2px;
+    margin-bottom:15px;
+}
+#characterCategoryInput{
+    width:100%;
+    font-size:15px;
+}
+
+#categoryCount{
+    color:#9ca3af;
+    font-size:14px;
+    text-align:right;
+    margin-top:2px;
+    margin-bottom:15px;
+}
+#characterImageInput{
+    width:100%;
+    padding:10px;
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:12px;
+    color:white;
+    box-sizing:border-box;
+}
+#createCharacterButton{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    background:var(--theme-color);
+    color:white;
+    border:none;
+    border-radius:14px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+#createCharacterButton:hover{
+    transform:translateY(-2px);
+    opacity:0.9;
+}
+#createPage{
+    max-width:800px;
+    margin:20px auto;
+}
+#createPage label{
+    display:block;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:6px;
+    color:white;
+}
+
+#createPage input,
+#createPage textarea{
+    margin-top:8px;
+}
+
+.field-help{
+    line-height:1.4;
+}
+.advanced-options{
+    background:transparent;
+    border:none;
+    padding:10px 0;
+}
+
+.advanced-options summary{
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
+    color:white;
+}
+#definitionCount{
+    text-align:right;
+    color:#9ca3af;
+    margin-top:4px;
+}
+
+.form-group{
+    margin-bottom:20px;
+}
         :root {
             --theme-color: #8b5cf6;
         }
@@ -17,6 +145,42 @@
             padding: 20px;
             margin-left: 270px;
         }
+        input,
+textarea,
+select {
+    background: #1e1e1e;
+    color: white;
+    border: 2px solid var(--theme-color);
+    border-radius: 12px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #9ca3af;
+}
+#characterWelcomeInput{
+    width:100%;
+    min-height:180px;
+    font-size:15px;
+    resize:vertical;
+}
+#characterDefinitionInput{
+    width:100%;
+    min-height:500px;
+    font-size:15px;
+    resize:vertical;
+    box-sizing:border-box;
+}
+
+#welcomeCount{
+    color:#9ca3af;
+    font-size:14px;
+    text-align:right;
+    margin-top:2px;
+    margin-bottom:15px;
+}
 
         #sidebar {
             position: fixed;
@@ -287,7 +451,14 @@ padding: 14px 18px;
 #bottomNav {
     display: none;
 }
+#authPage button{
+    transition: all .2s ease;
+}
 
+#authPage button:hover{
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
 @media (max-width: 768px) {
     #bottomNav {
         position: fixed;
@@ -320,9 +491,184 @@ padding: 14px 18px;
     color: var(--theme-color) !important;
     transform: scale(1.15);
 }
-    </style>
-</head>
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+    font-weight: 700;
+}
 
+.logo img {
+    width: 42px;
+    height: 42px;
+}
+.login-logo{
+    width:90px;
+    height:90px;
+    display:block;
+    margin:0 auto 20px;
+    filter: drop-shadow(0 0 15px rgba(168,85,247,.35));
+}
+.login-logo {
+    width: 90px;
+    height: 90px;
+    display: block;
+    margin: 0 auto 20px;
+    filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.35));
+    animation: floatLogo 3s ease-in-out infinite;
+}
+
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+/* Hide scrollbars everywhere */
+
+* {
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* Internet Explorer */
+}
+
+*::-webkit-scrollbar {
+    display: none;              /* Chrome, Edge, Safari */
+}
+#birthdayColumns {
+    position: relative;
+}
+
+#pickerHighlight{
+    position:absolute;
+
+    left:30px;
+    right:30px;
+
+    top:50%;
+    transform:translateY(-50%);
+
+    height:80px;
+
+    border:2px solid var(--theme-color);
+    border-radius:16px;
+
+    background:rgba(138,92,246,.08);
+
+    pointer-events:none;
+}
+#birthdayPopup {
+    position: relative;
+
+    width: 430px;
+    padding: 30px;
+
+    background: #18141f;
+
+    border: 2px solid var(--theme-color);
+    border-radius: 24px;
+
+    color: white;
+
+    overflow: hidden;
+
+    box-shadow: 0 0 30px rgba(138,92,246,.25);
+}
+#birthdayWheel{
+    display:grid;
+    grid-template-columns:1fr 1.5fr 1fr;
+
+    gap:20px;
+
+    height:260px;
+
+    margin:30px 0;
+}
+
+.wheelColumn {
+    flex: 1;
+    height: 400px;
+
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    scroll-snap-type: y mandatory;
+}
+
+.wheelColumn::-webkit-scrollbar {
+    display: none;
+}
+.wheelItem {
+    height: 80px;          /* was 60px */
+    min-height: 80px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 24px;
+
+    scroll-snap-align: center;
+
+    transition: .2s;
+}
+#signupStep2{
+    max-width:500px;
+    margin:40px auto;
+    padding:30px;
+
+    background:#16131d;
+    border:2px solid var(--theme-color);
+    border-radius:24px;
+
+    box-shadow:0 0 20px rgba(139,92,246,.2);
+}
+#birthdayButton{
+    width:100%;
+    height:52px;
+
+    background:#1b1724;
+    border:2px solid var(--theme-color);
+    border-radius:14px;
+
+    color:white;
+    font-size:16px;
+    text-align:left;
+
+    padding:0 16px;
+}
+#signupStep2 input,
+#signupStep2 select,
+#signupStep2 button{
+    height:52px;
+    border-radius:14px;
+    font-size:16px;
+    box-sizing:border-box;
+}
+#signupStep2 label{
+    display:block;
+    margin-bottom:8px;
+
+    font-size:15px;
+    font-weight:600;
+
+    color:#d8c7ff;
+}
+#signupProfilePicture{
+    display:none;
+}
+    </style>
+    </head>
 <body>
     <div id="authPage" style="display:none;">
 
@@ -334,17 +680,19 @@ padding: 14px 18px;
         border-radius:20px;
         padding:30px;
         text-align:center;
-        box-shadow:0 0 25px rgba(124,58,237,0.25);
+        box-shadow:
+    0 10px 40px rgba(124,58,237,.25),
+    inset 0 1px 0 rgba(255,255,255,.05);
     ">
-
+    <img src="logo.png" alt="Lorely Logo" class="login-logo">
         <h1 style="margin-top:0;">
-            𓆩☾𓆪 Lorely
+             ⋆˙⟡ Lorely ☾ ⋆˚࿔
         </h1>
 
         <p style="color:#9ca3af;">
-            Welcome back to your stories.
+            Every story begins with a conversation
         </p>
-
+<div id="signupStep1">
         <input id="emailInput" type="email" placeholder="Email" style="
             width:100%;
             padding:12px;
@@ -380,7 +728,7 @@ padding: 14px 18px;
             Log In
         </button>
 
-        <button onclick="createAccount()" style="
+        <button onclick="nextSignupStep()" style="
             width:100%;
             margin-top:10px;
             padding:12px;
@@ -394,12 +742,72 @@ padding: 14px 18px;
         </button>
 
     </div>
+</div>
+<div id="signupStep2" style="display:none;">
+
+    <h2>Finish Creating Your Account</h2>
+<div style="margin-bottom:20px;">
+    <label>Username</label>
+    <input
+        id="signupUsername"
+        type="text"
+        placeholder="Choose a username">
+<br>
+</div>
+<div style="margin-bottom:20px;">
+    <label>Birthday</label>
+
+<button id="birthdayButton" onclick="openBirthdayPicker()" style="
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#262033;
+    color:white;
+    cursor:pointer;
+">
+    Select your birthday
+</button>
+
+<br>
+</div>
+<div style="margin-bottom:20px;">
+    <label>Content Preference</label>
+    <select id="signupContentPreference">
+        <option value="" selected disabled>Select one...</option>
+        <option value="sfw">SFW</option>
+        <option value="nsfw">NSFW</option>
+    </select>
+<br>
+</div>
+<div style="margin-bottom:20px;">
+    <label>Profile Picture (Optional)</label>
+    <input
+        id="signupProfilePicture"
+        type="file"
+        accept="image/*">
+
+        <button
+    id="uploadPictureButton"
+    type="button"
+    onclick="document.getElementById('signupProfilePicture').click();">
+    Upload Profile Picture
+</button>
+
+    <br>
+</div>
+    <button onclick="finishSignup()">
+        Create Account
+    </button>
 
 </div>
+
 </div>
     <div id="loadingScreen">
         <div class="loader-content">
-            <h1>⋆˙⟡ Lorely ☾ ⋆˚࿔</h1>
+            <div class="logo">
+    <span>⋆˙⟡ Lorely ☾ ⋆˚࿔</span>
+</div>
             <p id="loadingText">Loading stories...</p>
             <div class="moon"></div>
         </div>
@@ -425,17 +833,20 @@ padding: 14px 18px;
         cursor:pointer;
         border-top:1px solid var(--theme-color);;
     ">
-            <img id="sidebarProfilePicture" src=character.image || "" style="
-                width:40px;
-                height:40px;
-                border-radius:50%;
-                object-fit:cover;
-             ">
+        <img
+        id="sidebarProfilePicture"
+        src=""
+        style="
+        width:40px;
+        height:40px;
+        border-radius:50%;
+        object-fit:cover;
+    ">
 
-            <div>
-                <div>Hope</div>
-                <small>@Leoktzelaus</small>
-            </div>
+           <div>
+    <div id="sidebarDisplayName">User</div>
+    <small id="sidebarUsername">@user</small>
+</div>
         </div>
     
 </div>
@@ -860,7 +1271,30 @@ padding: 14px 18px;
                     border-radius:12px;
                     padding:10px;
                     resize:none;
-              "></textarea>
+            ">
+              </textarea>
+
+              <label>Birthday</label>
+                <input type="date" id="birthday" style="
+                width:180px;
+                height:40px;
+                text-align:center;
+                background:#16131d;
+                color:#9ca3af;
+                border:2px solid var(--theme-color);
+                border-radius:12px;
+                padding:8px;">
+
+                <label>Allow NSFW content</label>
+                <input type="checkbox" id="nsfwToggle"style="
+                width:300px;
+                text-align:center;
+                background:#16131d;
+                color:#9ca3af;
+                border:2px solid var(--theme-color);
+                border-radius:12px;
+                padding:8px;">
+
 
                 <button onclick="saveProfile()" style="
         background:var(--theme-color);
@@ -1028,9 +1462,15 @@ padding: 14px 18px;
 </div>
         </div>
         <input id="chatSearch" placeholder="Search messages..." oninput="renderMessages()" style="
-        width:100%;
-        margin-bottom:10px;
-    ">
+    width:100%;
+    margin-bottom:10px;
+    background:#1e1e1e;
+    color:white;
+    border:2px solid var(--theme-color);
+    border-radius:12px;
+    padding:10px;
+    box-sizing:border-box;
+">
         <div id="chat">
             <p>Select a character to start chatting.</p>
         </div>
@@ -1085,61 +1525,296 @@ padding: 14px 18px;
         <input id="searchInput" placeholder="Search characters..." oninput="loadCharacters()">
         <div id="characterList"></div>
     </div>
-
     <div id="createPage" style="display:none; margin-top:20px">
-        <h2>Create Character</h2>
-        <input id="characterNameInput" placeholder="Character Name"><br><br>
-        <input id="characterMottoInput" placeholder="Character Motto"><br><br>
-        <input id="characterDescriptionInput" placeholder="Description"><br><br>
-        <input id="characterWelcomeInput" placeholder="Welcome Message"><br><br>
-        <input id="characterCategoryInput" placeholder="Category"><br><br>
-        <input type="file" id="characterImageInput" accept="image/*"><br><br>
-        <label>
-        <input type="checkbox" id="characterPublicInput">
-    Public Character
-</label>
-        <button onclick="createCharacter()">Save Character</button>
-        <h3>Theme Color</h3>
 
-        <input type="color" id="themeColorPicker" value="#9ca3af">
+    <h2>Create Character</h2>
 
-        <br><br>
+    <div class="form-group">
+        <label>Character Name</label>
 
-        <button onclick="resetTheme()">
-            Reset Theme
-        </button>
+        <p class="field-help">
+            The name users will see.
+        </p>
 
-        <br><br>
+        <input
+            id="characterNameInput"
+            placeholder="Character Name"
+            maxlength="20"
+        >
+
+        <div id="nameCount">0/20</div>
     </div>
 
+    <div class="form-group">
+        <label>Motto</label>
 
+        <p class="field-help">
+            This short line is what users see before opening the chat.
+        </p>
 
-    <script>
-        let messages = {};
-        let selectedCharacter = null;
-        let characterImage = "";
-        let editingCharacter = null;
-        let editingPersona = null;
+        <input
+            id="characterMottoInput"
+            placeholder="Character Motto"
+            maxlength="50"
+        >
 
-        let currentPersona =
-            localStorage.getItem("currentPersona") || "";
+        <div id="mottoCount">0/50</div>
+    </div>
 
-        let themeColor =
-            localStorage.getItem("themeColor") || "var(--theme-color)";
+    <div class="form-group">
+        <label>Description</label>
 
-        function applyTheme() {
+        <p class="field-help">
+            Tell users who this character is and what makes them interesting.
+        </p>
 
-            document.documentElement.style.setProperty(
-                "--theme-color",
-                themeColor
-            );
+        <textarea
+            id="characterDescriptionInput"
+            placeholder="Description"
+            maxlength="500"
+            rows="6">
+        </textarea>
 
-            const picker =
-                document.getElementById("themeColorPicker");
+        <div id="descriptionCount">0/500</div>
+    </div>
 
-            if (picker) {
-                picker.value = themeColor;
-            }
+    <div class="form-group">
+        <label>Welcome Message</label>
+
+        <p class="field-help">
+            The first message users see when they open the chat.
+        </p>
+
+        <textarea
+            id="characterWelcomeInput"
+            placeholder="Welcome Message"
+            maxlength="4096"
+            rows="8">
+        </textarea>
+
+        <div id="welcomeCount">0/4096</div>
+    </div>
+
+    <div class="form-group">
+        <label>Category</label>
+
+        <p class="field-help">
+            Used to organize and find your character.
+        </p>
+
+        <input
+            id="characterCategoryInput"
+            placeholder="e.g. OC, PPT, Fantasy"
+            maxlength="30"
+        >
+
+        <div id="categoryCount">0/30</div>
+    </div>
+
+    <div class="form-group">
+        <label>Character Image</label>
+
+        <p class="field-help">
+            Upload a profile image for your character.
+        </p>
+
+        <input
+            type="file"
+            id="characterImageInput"
+            accept="image/*"
+        >
+    </div>
+
+    <div class="form-group">
+        <label>Visibility</label>
+
+        <p class="field-help">
+            Choose who can see and use this character.
+        </p>
+
+        <label style="
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin-top:8px;
+        ">
+            <input
+                type="checkbox"
+                id="characterPublicInput"
+            >
+
+            Public Character
+        </label>
+    </div>
+
+    <button id="createCharacterButton" onclick="createCharacter()">
+    Create Character
+</button>
+
+</div>
+        <script type="module">
+            let selectedDay = 1;
+let selectedMonth = "January";
+let selectedYear = 2000;
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import {getFirestore,doc,setDoc,getDoc,deleteDoc,collection,addDoc,getDocs,query,where,} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+  import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+window.addDoc = addDoc;
+window.collection = collection;
+window.onAuthStateChanged = onAuthStateChanged;
+window.deleteDoc = deleteDoc;
+window.query = query;
+window.where = where;
+window.getDocs = getDocs;
+window.getDoc = getDoc;
+window.collection = collection;
+console.log("deleteDoc:", deleteDoc);
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyDva7Les9FsM42PcUNz-O4VD5uLwAKfNF8",
+    authDomain: "lorely-16e72.firebaseapp.com",
+    projectId: "lorely-16e72",
+    storageBucket: "lorely-16e72.firebasestorage.app",
+    messagingSenderId: "828280809809",
+    appId: "1:828280809809:web:8b278f349742326f0d8b70",
+    measurementId: "G-ZNZBC6XFG8"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    window.db = db;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.doc = doc;
+console.log("getDoc:", getDoc);
+console.log("window.getDoc:", window.getDoc);
+    window.auth = auth;
+    window.addDoc = addDoc;
+window.collection = collection;
+window.getDocs = getDocs;
+window.query = query;
+window.where = where;
+window.onAuthStateChanged = onAuthStateChanged;
+    window.createAccount = async () => {
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
+    try {
+        const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+        await setDoc(
+    doc(db, "users", userCredential.user.uid),
+    {
+        displayName: "",
+        username: "",
+        birthday: "",
+        profileBio: "",
+        nsfw: false,
+        profilePicture: ""
+    }
+);
+        await setDoc(doc(db, "users", userCredential.user.uid), {
+    displayName: document.getElementById("displayName").value,
+    username: document.getElementById("username").value,
+    profileBio: document.getElementById("profileBio").value
+
+});
+
+        console.log("Account created:", userCredential.user.email);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+window.loginAccount = async () => {
+    const email = document.getElementById("emailInput").value;
+    const password = document.getElementById("passwordInput").value;
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        console.log("Logged in:", userCredential.user.email);
+    } catch (error) {
+        console.error(error);
+    }
+};
+window.logoutAccount = async () => {
+    await auth.signOut();
+};
+  console.log("Firebase initialized");
+  console.log("Auth initialized");
+  window.auth = auth;
+
+const authPage = document.getElementById("authPage");
+
+onAuthStateChanged(auth, (user) => {loadProfile();
+    if (user) {
+        showPage("home");
+         loadCharacters();
+        console.log("User logged in:", user.email);
+    } else {
+        showPage("auth");
+        console.log("No user logged in");
+        console.log("Trying to show auth page");
+showPage("auth");
+    }
+});
+
+console.log("Auth exposed");
+async function loadProfile() {
+
+    const user = auth.currentUser;
+
+    if (!user) return;
+
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+
+        const data = docSnap.data();
+
+        document.getElementById("displayName").value =
+            data.displayName || "";
+
+        document.getElementById("username").value =
+            data.username || "";
+
+        document.getElementById("profileBio").value =
+            data.profileBio || "";
+            document.getElementById("birthday").value =
+    data.birthday || "";
+
+document.getElementById("nsfwToggle").checked =
+    data.nsfw || false;
+    
+    document.getElementById("sidebarDisplayName").textContent =
+    data.displayName || "User";
+
+document.getElementById("sidebarUsername").textContent =
+    "@" + (data.username || "user");
+
+document.getElementById("sidebarProfilePicture").src =
+    data.profilePicture || "";
+    }
+}
             document.addEventListener("input", function (e) {
 
                 if (e.target.id === "themeColorPicker") {
@@ -1154,12 +1829,49 @@ padding: 14px 18px;
                     applyTheme();
                 }
             });
-        }
 
         async function selectCharacter(name) {
-            const snapshot = await getDoc(
-                doc(db, "characters", name)
-            );
+            if (name === "lorely") {
+
+    selectedCharacter = "lorely";
+
+    messages =
+        JSON.parse(localStorage.getItem("messages")) || {};
+
+    if (!messages["lorely"]) {
+        messages["lorely"] = [{
+            sender: "Lorely",
+            text: "🌙 Welcome, dreamer.Before you step into another world, remember this:Every character you meet was once someone's imagination.Some become heroes.Some become legends.And some... become real enough to leave echoes behind.I'm Lorely. Ask me anything.",
+            time: new Date().toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit"
+            })
+        }];
+    }
+
+    document.getElementById("chatCharacterImage").src = "logo.png";
+    document.getElementById("characterMotto").textContent =
+        "Keeper of Stories";
+
+    document.getElementById("currentCharacter").textContent =
+        "Chatting with: Lorely";
+
+    localStorage.setItem(
+        "messages",
+        JSON.stringify(messages)
+    );
+
+    renderMessages();
+    showPage("chat");
+    return;
+}
+            const snapshot = await window.getDoc(
+    window.doc(window.db, "characters", name)
+);
+            if (!snapshot.exists()) {
+    console.log("Character not found:", name);
+    return;
+}
 
             console.log(snapshot.exists());
             console.log(snapshot.data());
@@ -1174,8 +1886,8 @@ console.log(character);
     let recent =
         JSON.parse(localStorage.getItem("recentCharacters")) || [];
 
-    recent = recent.filter(c => c !== name);
-    recent.unshift(name);
+    recent = recent.filter(c => c !== character.name);
+recent.unshift(character.name);
     recent = recent.slice(0, 5);
 
     localStorage.setItem(
@@ -1184,16 +1896,16 @@ console.log(character);
     );
 
     localStorage.setItem(
-        "lastCharacter",
-        name
-    );
+    "lastCharacter",
+    character.name
+);
 
     messages =
         JSON.parse(localStorage.getItem("messages")) || {};
 
-    if (!messages[name]) {
-        messages[name] = [];
-    }
+    if (!messages[character.name]) {
+    messages[character.name] = [];
+}
 
         document.getElementById("chatCharacterImage").src =
     character.image || "";
@@ -1229,19 +1941,32 @@ if (
     showPage("chat");
     loadRecentCharacters();
 }
+window.selectCharacter = selectCharacter;
 
         function showPage(page) {
 
-            document.getElementById("homePage").style.display = "none";
-            document.getElementById("profilePage").style.display = "none";
-            document.getElementById("chatPage").style.display = "none";
-            document.getElementById("charactersPage").style.display = "none";
-            document.getElementById("createPage").style.display = "none";
-            document.getElementById("announcementsPage").style.display = "none";
-            document.getElementById("authPage").style.display = "none";
+            [
+    "homePage",
+    "profilePage",
+    "chatPage",
+    "charactersPage",
+    "createPage",
+    "announcementsPage",
+    "authPage",
+    "editPage"
+].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+        el.style.display = "none";
+    } else {
+        console.log("Missing page:", id);
+    }
+});
 
-            if (page === "home")
-                document.getElementById("homePage").style.display = "block";
+            if (page === "home") {
+    document.getElementById("homePage").style.display = "block";
+    loadFeaturedCharacters();
+}
 
                 if (page === "auth")
     document.getElementById("authPage").style.display = "block";
@@ -1259,6 +1984,8 @@ if (
                 document.getElementById("createPage").style.display = "block";
             if (page === "announcements")
                 document.getElementById("announcementsPage").style.display = "block";
+            if (page === "edit")
+                document.getElementById("editPage").style.display = "block";
             document.querySelectorAll("#bottomNav button")
     .forEach(btn => btn.classList.remove("nav-active"));
 
@@ -1312,7 +2039,7 @@ if (page === "profile")
 
                 container.innerHTML += `
         <div
-           onclick='selectCharacter(${JSON.stringify(character.id)})'
+           onclick="selectCharacter('${character.id}')"
             style="
                 min-width:250px;
                 background:#1e1e1e;
@@ -1433,10 +2160,13 @@ if (page === "profile")
     }
 
     const profileData = {
-        displayName: document.getElementById("displayName").value,
-        username: document.getElementById("username").value,
-        profileBio: document.getElementById("profileBio").value
-    };
+    displayName: document.getElementById("displayName").value,
+    username: document.getElementById("username").value,
+    birthday: document.getElementById("birthday").value,
+    profileBio: document.getElementById("profileBio").value,
+    nsfw: document.getElementById("nsfwToggle").checked,
+    profilePicture: document.getElementById("sidebarProfilePicture").src || ""
+};
 
     try {
     await setDoc(
@@ -1445,6 +2175,7 @@ if (page === "profile")
     );
 
     console.log("Profile saved!");
+    await loadProfile();
     alert("Profile saved!");
 
 } catch (error) {
@@ -1462,6 +2193,14 @@ if (page === "profile")
     const user = window.auth.currentUser;
 
     let characters = [];
+    const lorelyCharacter = {
+    id: "lorely",
+    name: "Lorely",
+    motto: "Keeper of Stories 𓏲ּ𝄢",
+    category: "Lore",
+    favorite: true,
+    image: "logo.png" // You can replace this later with a portrait
+};
 
 if (user) {
     const q = query(
@@ -1475,6 +2214,8 @@ if (user) {
     id: doc.id,
     ...doc.data()
 }));
+// Always show Lorely first
+characters.unshift(lorelyCharacter);
 }
 
     const filter =
@@ -1542,18 +2283,32 @@ if (user) {
                     list.innerHTML += `
    <div
    onmouseover="this.style.transform='translateY(-4px)'; this.style.borderColor='#7a4b94'"
-onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--theme-color)'" style="
-    background:#1e1e1e;
+onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--theme-color)'"style="
+    background:${character.id === 'lorely'
+        ? 'linear-gradient(145deg,#241533,#17101f)'
+        : '#1e1e1e'};
+
     color:white;
     padding:10px;
     border-radius:20px;
     margin-bottom:10px;
-    border:2px solid var(--theme-color);
-    box-shadow:0 0 20px rgba(80,44,96,0.4);
-    transition: all 0.2s ease;
+
+    border:2px solid ${
+        character.id === "lorely"
+            ? "#d9b8ff"
+            : "var(--theme-color)"
+    };
+
+    box-shadow:${
+        character.id === "lorely"
+            ? "0 0 30px rgba(217,184,255,.45)"
+            : "0 0 20px rgba(80,44,96,.4)"
+    };
+
+    transition:all .25s ease;
     width:100%;
     box-sizing:border-box;
-">
+"
 <div style="
     display:flex;
     align-items:flex-start;
@@ -1591,25 +2346,63 @@ onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--
         text-shadow:0 0 8px var(--theme-color);
         font-size:16px;
     ">
+    ${character.id === "lorely" ? `
+<div style="
+    display:inline-block;
+    background:linear-gradient(90deg,#ffd700,#ffe78a);
+    color:#222;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:bold;
+    margin-bottom:8px;
+">
+♔ OFFICIAL CHARACTER
+</div>
+` : ""}
         ${character.name}
+         ${character.id === "lorely"
+        ? `<span style="
+            font-size:12px;
+            background:gold;
+            color:black;
+            padding:2px 8px;
+            border-radius:999px;
+            margin-left:8px;
+        ">OFFICIAL</span>`
+        : ""}
     </h3>
-                <p style="color:#d1d5db;margin:5px 0">${character.motto || ""}</p>
+                <p style="color:#d1d5db;margin:5px 0">${character.id === "lorely"
+    ? "The Keeper of Every Story Ever Told."
+    : (character.motto || "")}</p>
                 <p style="color:#60a5fa;margin:5px 0">
      ★ ${character.category || "Uncategorized"}
 </p>
-                <button onclick='selectCharacter(${JSON.stringify(character.id)}); showPage("chat");'>
+${character.id === "lorely" ? `
+<button onclick='selectCharacter("lorely"); showPage("chat");'>
+    Enter Lore
+</button>
+` : `
+<button onclick='selectCharacter(${JSON.stringify(character.id)}); showPage("chat");'>
     Chat
 </button>
-                <button onclick='editCharacter(${JSON.stringify(character.name)})' style="margin-left:8px">
+
+<button onclick='editCharacter(${JSON.stringify(character.id)});'>
     Edit
 </button>
-<button onclick="duplicateCharacter('${character.name}')">
+
+<button onclick="duplicateCharacter(${JSON.stringify(character.id)})">
     Duplicate
 </button>
-<button onclick='toggleFavorite(${JSON.stringify(character.name)})'>
-    ${character.favorite ? " Unfavorite" : "Favorite"}
+
+<button onclick='toggleFavorite(${JSON.stringify(character.id)})'>
+    ${character.favorite ? "Unfavorite" : "Favorite"}
 </button>
-                <button onclick='deleteCharacter(${JSON.stringify(character.name)})' style="margin-left:8px">Delete</button>
+
+<button onclick='deleteCharacter(${JSON.stringify(character.id)})'>
+    Delete
+</button>
+`}
             </div>
         </div>
     </div>`;
@@ -1693,6 +2486,7 @@ if (user) {
     );
 }
 editingCharacter = null;
+document.getElementById("createCharacterButton").textContent = "Create Character";
 
             loadCharacters();
             loadFeaturedCharacters();
@@ -1706,11 +2500,17 @@ editingCharacter = null;
             reader.onload = function (e) { characterImage = e.target.result; };
             reader.readAsDataURL(file);
         });
-
+window.createCharacter = createCharacter;
         function sendMessage() {
-            const input = document.getElementById("messageInput");
+            console.log("sendMessage() called");
+    const input = document.getElementById("messageInput");
+    const userMessage = input.value;
 
-            if (!input.value) return;
+    console.log("User message:", userMessage);
+    console.log("Selected character:", selectedCharacter);
+
+    if (!userMessage) return;
+    input.value = "";
 
             if (!selectedCharacter) {
                 alert("Select a character first!");
@@ -1718,8 +2518,8 @@ editingCharacter = null;
             }
 
             messages[selectedCharacter].push({
-                sender: "You",
-                text: input.value,
+    sender: "You",
+    text: userMessage,
                 time: new Date().toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit"
@@ -1733,13 +2533,133 @@ editingCharacter = null;
             console.log(localStorage.getItem("messages"));
 
             renderMessages();
-
-const userMessage = input.value;
+            generateLorelyResponse(userMessage);
 
 input.value = "";
 
-generateAIResponse(userMessage);
         }
+        const loreDatabase = {
+
+    lorely: `
+I am Lorely, Keeper of Stories.
+
+Long before kingdoms rose and fell, I was simply a curious girl who wandered too far into the forest.
+
+That journey changed everything.
+
+Now I watch over every story ever imagined.
+`,
+
+    app: `
+Lorely isn't just an AI chat app.
+
+It is a place where every world, every character and every dream can exist together.
+
+Every imagination has a home here.
+`,
+
+    brooke: `
+Brooke Alister is the spark.
+
+She's impulsive, adventurous and never afraid of opening doors others are too scared to touch.
+`,
+
+    emil: `
+Emil Pierce remembers forgotten stories.
+
+Where Brooke explores...
+
+Emil preserves.
+`,
+
+    honey: `
+Honey is a magical bear cub adopted by Brooke and Emil.
+
+She reminds everyone that every traveler deserves a place to call home.
+`
+};
+        function generateLorelyResponse(message) {
+            console.log("Lorely received:", message);
+             console.log("Lorely function called!");
+    console.log("Selected character:", selectedCharacter);
+    console.log("Message:", message);
+
+    const question = message.toLowerCase();
+    let reply = "";
+
+    if (
+        question.includes("hello") ||
+        question.includes("hi") ||
+        question.includes("hey")
+    ) {
+
+        reply = `🌙 Hello, dreamer.
+
+Welcome back to Lorely.
+
+How may I guide you today?`;
+
+    } else if (
+        question.includes("who are you") ||
+        question.includes("about yourself")
+    ) {
+
+        reply = loreDatabase.lorely;
+
+    } else if (
+        question.includes("what is lorely") ||
+        question.includes("app")
+    ) {
+
+        reply = loreDatabase.app;
+
+    } else if (
+        question.includes("brooke")
+    ) {
+
+        reply = loreDatabase.brooke;
+
+    } else if (
+        question.includes("emil")
+    ) {
+
+        reply = loreDatabase.emil;
+
+    } else if (
+        question.includes("honey")
+    ) {
+
+        reply = loreDatabase.honey;
+
+    } else {
+
+        reply = `𑣲☾ I don't know the answer to that yet.
+
+You can ask me about:
+• Lorely
+• Brooke
+• Emil
+• Honey
+
+More stories are still being written. ⋆˙⟡`;
+    }
+
+    messages[selectedCharacter].push({
+        sender: "Lorely",
+        text: reply,
+        time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit"
+        })
+    });
+
+    localStorage.setItem(
+        "messages",
+        JSON.stringify(messages)
+    );
+
+    renderMessages();
+}
         async function generateAIResponse(userMessage) {
     try {
         console.log("Sending request...");
@@ -1908,54 +2828,75 @@ line-height:1.5;
                 });
             chat.scrollTop = chat.scrollHeight;
         }
-        function editCharacter(name) {
+ async function editCharacter(characterId) {
+    console.log("editCharacter called");
 
-            editingCharacter = name;
+    editingCharacter = characterId;
 
-            const characters =
-                JSON.parse(localStorage.getItem("characters")) || [];
+    const snapshot = await getDoc(
+        doc(db, "characters", characterId)
+    );
 
-            const character =
-                characters.find(c => c.name === name);
+    if (!snapshot.exists()) {
+        alert("Character not found.");
+        return;
+    }
 
-            if (!character) return;
+    const character = snapshot.data();
 
-            document.getElementById("characterNameInput").value =
-                character.name;
+    document.getElementById("characterNameInput").value =
+        character.name || "";
 
-            document.getElementById("characterMottoInput").value =
-                character.motto || "";
+    document.getElementById("characterMottoInput").value =
+        character.motto || "";
 
-            document.getElementById("characterDescriptionInput").value =
-                character.description || "";
+    document.getElementById("characterDescriptionInput").value =
+        character.description || "";
 
-            document.getElementById("characterWelcomeInput").value =
-                character.welcomeMessage || "";
+    document.getElementById("characterWelcomeInput").value =
+        character.welcomeMessage || "";
 
-            characterImage =
-                character.image || "";
+    document.getElementById("characterCategoryInput").value =
+        character.category || "";
 
-            showPage("create");
+    document.getElementById("characterPublicInput").checked =
+        character.public || false;
+
+    characterImage = character.image || "";
+const button = document.getElementById("createCharacterButton");
+console.log(button);
+
+if (button) {
+    button.textContent = "Save Changes";
+}
+    showPage("create");
+}
+
+window.editCharacter = editCharacter;
+        async function toggleFavorite(characterId) {
+
+    const ref = doc(db, "characters", characterId);
+
+    const snapshot = await getDoc(ref);
+
+    if (!snapshot.exists()) return;
+
+    const character = snapshot.data();
+
+    await setDoc(
+        ref,
+        {
+            ...character,
+            favorite: !character.favorite
         }
-        function toggleFavorite(name) {
+    );
 
-            const characters =
-                JSON.parse(localStorage.getItem("characters")) || [];
+    loadCharacters();
+    document.getElementById("createCharacterButton").textContent = "Save Changes";
+}
 
-            const character =
-                characters.find(c => c.name === name);
+window.toggleFavorite = toggleFavorite;
 
-            if (!character) return;
-
-            character.favorite = !character.favorite;
-
-            localStorage.setItem(
-                "characters",
-                JSON.stringify(characters)
-            );
-
-            loadCharacters();
-        }
         function clearChat() {
 
             if (!selectedCharacter) {
@@ -2000,19 +2941,52 @@ line-height:1.5;
 
     loadCharacters();
 }
-        document
-            .getElementById("themeColorPicker")
-            .addEventListener("input", function () {
+window.deleteCharacter = deleteCharacter;
+let themeColor =
+    localStorage.getItem("themeColor") || "#9ca3af";
+    let selectedCharacter = null;
+    let editingCharacter = null;
+    let characterImage = "";
+    let messages =
+    JSON.parse(localStorage.getItem("messages")) || {};
+    window.deleteCharacter = deleteCharacter;
+function applyTheme() {
 
-                themeColor = this.value;
+            document.documentElement.style.setProperty(
+                "--theme-color",
+                themeColor
+            );
 
-                localStorage.setItem(
-                    "themeColor",
-                    themeColor
-                );
+            const picker =
+                document.getElementById("themeColorPicker");
 
-                applyTheme();
+            if (picker) {
+                picker.value = themeColor;
+            }
+            document.addEventListener("input", function (e) {
+
+                if (e.target.id === "themeColorPicker") {
+
+                    themeColor = e.target.value;
+
+                    localStorage.setItem(
+                        "themeColor",
+                        themeColor
+                    );
+
+                    applyTheme();
+                }
             });
+        }
+        const picker = document.getElementById("themeColorPicker");
+
+if (picker) {
+    picker.addEventListener("input", function () {
+        themeColor = this.value;
+        localStorage.setItem("themeColor", themeColor);
+        applyTheme();
+    });
+}
         // initialize
         const lastCharacter =
             localStorage.getItem("lastCharacter");
@@ -2075,7 +3049,7 @@ line-height:1.5;
                         ${character.motto || "No motto"}
                     </p>
 
-                    <button onclick="selectCharacter('${character.id}')">
+                    onclick="selectCharacter('${character.name}')"
     Chat
 </button>
             `;
@@ -2320,7 +3294,6 @@ line-height:1.5;
             <label>Display Name</label>
 
             <input
-    <input
     type="file"
     id="personaImage"
     accept="image/*"
@@ -2601,11 +3574,14 @@ line-height:1.5;
             if (!localStorage.getItem("interactions")) {
                 localStorage.setItem("interactions", "0");
             }
-             applyTheme();
+            if (typeof applyTheme === "function") {
+    applyTheme();
+}
     loadCharacters();
 
     await loadFeaturedCharacters();
     await loadTrendingCharacters();
+    await loadRecommendedCharacters();
 
     loadRecentCharacters();
     loadRecommendedCharacters();
@@ -2823,6 +3799,143 @@ const characters = snapshot.docs.map(doc => ({
         summary.textContent;
 
 }
+function nextSignupStep() {
+    document.getElementById("signupStep1").style.display = "none";
+    document.getElementById("signupStep2").style.display = "block";
+}
+
+window.nextSignupStep = nextSignupStep;
+
+function openBirthdayPicker() {
+    buildDayPicker();
+    buildMonthPicker();
+    buildYearPicker();
+
+    document.getElementById("birthdayPicker").style.display = "flex";
+}
+
+function closeBirthdayPicker() {
+    document.getElementById("birthdayPicker").style.display = "none";
+}
+
+window.openBirthdayPicker = openBirthdayPicker;
+window.closeBirthdayPicker = closeBirthdayPicker;
+
+function buildDayPicker() {
+    buildWheel(
+        "dayColumn",
+        Array.from({ length: 31 }, (_, i) => i + 1)
+    );
+}
+
+function buildMonthPicker() {
+    buildWheel(
+        "monthColumn",
+        [
+            "January","February","March","April",
+            "May","June","July","August",
+            "September","October","November","December"
+        ]
+    );
+}
+
+function buildYearPicker() {
+
+    const years = [];
+
+    for(let y = 1940; y <= 2013; y++){
+        years.push(y);
+    }
+
+    buildWheel("yearColumn", years);
+
+}
+function confirmBirthday() {
+
+    const birthday =
+        `${selectedDay} ${selectedMonth} ${selectedYear}`;
+
+    document.getElementById("birthdayButton").textContent = birthday;
+
+    closeBirthdayPicker();
+
+}
+
+window.confirmBirthday = confirmBirthday;
+
+function buildWheel(columnId, values) {
+    const column = document.getElementById(columnId);
+
+    column.innerHTML = "";
+
+    // Repeat the values 100 times
+    for (let loop = 0; loop < 100; loop++) {
+
+        values.forEach(value => {
+
+            const item = document.createElement("div");
+
+item.textContent = value;
+item.className = "wheelItem";
+item.dataset.value = value;
+
+column.appendChild(item);
+
+            column.appendChild(item);
+
+        });
+
+    }
+
+    // Start in the middle
+    const itemHeight = 80;
+    column.scrollTop = values.length * itemHeight * 5;
+    updateWheelSelection(column);
+
+column.addEventListener("scroll", () => {
+    updateWheelSelection(column);
+});
+}
+function updateWheelSelection(column) {
+
+    const center =
+    column.scrollTop + column.clientHeight / 2 + 60;
+
+    let closest = null;
+    let smallestDistance = Infinity;
+
+    column.querySelectorAll(".wheelItem").forEach(item => {
+
+        const itemCenter = item.offsetTop + item.offsetHeight / 2;
+        const distance = Math.abs(center - itemCenter);
+
+        item.style.color = "#888";
+        item.style.fontWeight = "400";
+        item.style.transform = "scale(1)";
+
+        if (distance < smallestDistance) {
+            smallestDistance = distance;
+            closest = item;
+        }
+
+    });
+
+    if (!closest) return;
+
+    closest.style.color = "white";
+    closest.style.fontWeight = "700";
+    closest.style.transform = "scale(1.15)";
+
+    // Save the selected value
+    if (column.id === "dayColumn") {
+        selectedDay = Number(closest.dataset.value);
+    } else if (column.id === "monthColumn") {
+        selectedMonth = closest.dataset.value;
+    } else if (column.id === "yearColumn") {
+        selectedYear = Number(closest.dataset.value);
+    }
+}
+
         function loadRecommendedCharacters() {
 
             const characters =
@@ -2902,25 +4015,32 @@ const characters = snapshot.docs.map(doc => ({
         `;
                 });
         }
-        function duplicateCharacter(name) {
-            console.log("Duplicate clicked!");
-            const characters = JSON.parse(localStorage.getItem("characters")) || [];
-            const original = characters.find(c => c.name === name);
-            if (!original) return;
+        async function duplicateCharacter(characterId) {
 
-            let copyName = original.name + " Copy";
-            let counter = 2;
+    const snapshot = await getDoc(
+        doc(db, "characters", characterId)
+    );
 
-            while (characters.some(c => c.name === copyName)) {
-                copyName = original.name + " Copy " + counter;
-                counter++;
-            }
+    if (!snapshot.exists()) return;
 
-            const copy = { ...original, name: copyName };
-            characters.push(copy);
-            localStorage.setItem("characters", JSON.stringify(characters));
-            showCharacters();
+    const character = snapshot.data();
+
+    const newName = character.name + " Copy";
+
+    await setDoc(
+        doc(db, "characters", auth.currentUser.uid + "_" + newName),
+        {
+            ...character,
+            owner: auth.currentUser.uid,
+            name: newName,
+            favorite: false
         }
+    );
+
+    loadCharacters();
+}
+
+window.duplicateCharacter = duplicateCharacter;
 
         function exportCharacters() {
             const characters = JSON.parse(localStorage.getItem("characters")) || [];
@@ -3041,133 +4161,52 @@ a.download = `lorely-backup-${date}.json`;
                 personaDisplay.textContent = "Current Persona: " + currentPersona;
             }
         });
-    </script>
+        document.getElementById("characterNameInput")
+    .addEventListener("input", function () {
 
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
-  import { getAuth } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import {getFirestore,doc,setDoc,getDoc,deleteDoc,collection,addDoc,getDocs,query,where,} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
-  import {createUserWithEmailAndPassword,signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-window.addDoc = addDoc;
-window.collection = collection;
-window.onAuthStateChanged = onAuthStateChanged;
-window.deleteDoc = deleteDoc;
-window.query = query;
-window.where = where;
-window.getDocs = getDocs;
-window.collection = collection;
-console.log("deleteDoc:", deleteDoc);
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyDva7Les9FsM42PcUNz-O4VD5uLwAKfNF8",
-    authDomain: "lorely-16e72.firebaseapp.com",
-    projectId: "lorely-16e72",
-    storageBucket: "lorely-16e72.firebasestorage.app",
-    messagingSenderId: "828280809809",
-    appId: "1:828280809809:web:8b278f349742326f0d8b70",
-    measurementId: "G-ZNZBC6XFG8"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    window.db = db;
-window.doc = doc;
-window.setDoc = setDoc;
-window.getDoc = getDoc;
-    window.auth = auth;
-    window.addDoc = addDoc;
-window.collection = collection;
-window.getDocs = getDocs;
-window.query = query;
-window.where = where;
-window.onAuthStateChanged = onAuthStateChanged;
-    window.createAccount = async () => {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-
-    try {
-        const userCredential = await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-        console.log("Account created:", userCredential.user.email);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-window.loginAccount = async () => {
-    const email = document.getElementById("emailInput").value;
-    const password = document.getElementById("passwordInput").value;
-
-    try {
-        const userCredential = await signInWithEmailAndPassword(
-            auth,
-            email,
-            password
-        );
-
-        console.log("Logged in:", userCredential.user.email);
-    } catch (error) {
-        console.error(error);
-    }
-};
-window.logoutAccount = async () => {
-    await auth.signOut();
-};
-  console.log("Firebase initialized");
-  console.log("Auth initialized");
-  window.auth = auth;
-
-const authPage = document.getElementById("authPage");
-
-onAuthStateChanged(auth, (user) => {loadProfile();
-    if (user) {
-        showPage("home");
-         loadCharacters();
-        console.log("User logged in:", user.email);
-    } else {
-        showPage("auth");
-        console.log("No user logged in");
-        console.log("Trying to show auth page");
-showPage("auth");
-    }
+    document.getElementById("nameCount").textContent =
+        this.value.length + "/20";
 });
+document.getElementById("characterDescriptionInput")
+    .addEventListener("input", function () {
 
-console.log("Auth exposed");
-async function loadProfile() {
+    document.getElementById("descriptionCount").textContent =
+        this.value.length + "/500";
+});
+document.getElementById("characterWelcomeInput")
+    .addEventListener("input", function () {
 
-    const user = auth.currentUser;
+    document.getElementById("welcomeCount").textContent =
+        this.value.length + "/4096";
+});
+document.getElementById("characterMottoInput")
+    .addEventListener("input", function () {
 
-    if (!user) return;
+    document.getElementById("mottoCount").textContent =
+        this.value.length + "/50";
+});
+document.getElementById("characterCategoryInput")
+    .addEventListener("input", function () {
 
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
+    document.getElementById("categoryCount").textContent =
+        this.value.length + "/30";
+});
+let greetingCount = 0;
 
-    if (docSnap.exists()) {
+function addGreetingField() {
+    if (greetingCount >= 5) return;
 
-        const data = docSnap.data();
+    greetingCount++;
 
-        document.getElementById("displayName").value =
-            data.displayName || "";
-
-        document.getElementById("username").value =
-            data.username || "";
-
-        document.getElementById("profileBio").value =
-            data.profileBio || "";
-    }
+    document.getElementById("greetingsContainer").innerHTML += `
+        <textarea
+            class="greetingInput"
+            placeholder="Greeting ${greetingCount}"
+            maxlength="4096"
+            rows="4"
+        ></textarea>
+        <br><br>
+    `;
 }
 </script>
 
@@ -3179,6 +4218,41 @@ async function loadProfile() {
     <button onclick="showPage('profile')" id="profileNavButton">
     <img id="profileNavImage" src="" alt="Profile">
 </button>
+</div>
+<div id="birthdayPicker" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.65);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+">
+
+
+    <div id="birthdayPopup">
+
+    <h2>Select Birthday</h2>
+
+    <div id="birthdayWheel">
+
+        <div id="dayColumn" class="wheelColumn"></div>
+
+        <div id="monthColumn" class="wheelColumn"></div>
+
+        <div id="yearColumn" class="wheelColumn"></div>
+
+    </div>
+
+    <div id="pickerHighlight"></div>
+
+    <div id="birthdayButtons">
+        <button onclick="closeBirthdayPicker()">Cancel</button>
+        <button onclick="confirmBirthday()">Confirm</button>
+    </div>
+
+</div>
+
 </div>
 </body>
 </html>
