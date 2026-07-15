@@ -3899,16 +3899,7 @@ const characters = snapshot.docs.map(doc => ({
 
             trending.innerHTML = "";
 
-            const sortedCharacters = [...characters].sort((a, b) => {
-
-                const aCount =
-                    messages[a.name]?.length || 0;
-
-                const bCount =
-                    messages[b.name]?.length || 0;
-
-                return bCount - aCount;
-            });
+            const sortedCharacters = [...characters];
 
             sortedCharacters.slice(0, 10).forEach(character => {
 
