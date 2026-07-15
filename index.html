@@ -183,20 +183,23 @@ textarea::placeholder {
 }
 
         #sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            width: 250px;
-            height: 100vh;
-            background: #16131d;
-            padding: 20px;
-            box-sizing: border-box;
-            border-right: 2px solid var(--theme-color);
-            box-shadow: 0 0 20px rgba(80, 44, 96, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background: #16131d;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 2px solid var(--theme-color);
+    box-shadow: 0 0 20px rgba(80, 44, 96, 0.3);
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    overflow-y: auto;   /* <-- add this */
+}
 
         #characterList {
             display: flex;
@@ -824,15 +827,38 @@ padding: 14px 18px;
         <button onclick="showPage('characters')">Characters</button>
         <button onclick="showPage('create')">Create</button>
 
-        <div onclick="showPage('profile')" style="
-        margin-top:auto;
-        display:flex;
-        align-items:center;
-        gap:10px;
-        padding:12px;
-        cursor:pointer;
-        border-top:1px solid var(--theme-color);;
-    ">
+        <hr style="border-color:var(--theme-color); opacity:0.3; margin:10px 0;">
+
+<h4 style="
+    color:#c4b5fd;
+    margin:8px 10px;
+    font-size:14px;
+    font-weight:600;
+">
+    Recently Chatted
+</h4>
+<h3 style="
+    margin:20px 0 10px;
+    color:#c4b5fd;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+">
+    Recent Chats
+</h3>
+
+<div id="sidebarRecentCharacters"></div>
+
+<div style="
+    max-height:260px;
+    overflow-y:auto;
+">
+    <div id="sidebarRecentCharacters"></div>
+</div>
+<div id="sidebarRecentCharacters" style="
+    max-height:180px;
+    overflow-y:auto;
+"></div>
         <img
         id="sidebarProfilePicture"
         src=""
@@ -993,7 +1019,21 @@ padding: 14px 18px;
 
         </div>
         <h2>Popular</h2>
-        <div id="popularCharacters"></div>
+        <div style="display:flex;align-items:center;gap:10px;">
+            
+            <button onclick="scrollPopular(-1)">◀</button>
+
+            <div id="popularCharacters" style="
+            display:flex;
+        gap:15px;
+        overflow-x:auto;
+        padding:10px 0;
+        scroll-behavior:smooth;
+        flex:1;
+        "></div>
+        <button onclick="scrollPopular(1)">▶</button>
+
+        </div>
 
         <h2>Trending</h2>
 
@@ -1559,7 +1599,9 @@ July 2026
     <button onclick="exportChat()">
         Export Chat
     </button>
-<button onclick="editCharacter(selectedCharacter)">
+<button
+    id="editCharacterButton"
+    onclick="editCharacter(selectedCharacter)">
     Edit Character
 </button>
     <button onclick="clearChat()">
@@ -1955,6 +1997,13 @@ document.getElementById("sidebarProfilePicture").src =
             })
         }];
     }
+    const editBtn = document.getElementById("editCharacterButton");
+
+if (selectedCharacter === "Lorely") {
+    editBtn.style.display = "none";
+} else {
+    editBtn.style.display = "block";
+}
 
     document.getElementById("chatCharacterImage").src = "logo.png";
     document.getElementById("characterMotto").textContent =
@@ -1995,7 +2044,7 @@ console.log(character);
 
     recent = recent.filter(c => c !== character.name);
 recent.unshift(character.name);
-    recent = recent.slice(0, 5);
+    recent = recent.slice(0, 20);
 
     localStorage.setItem(
         "recentCharacters",
@@ -2129,7 +2178,7 @@ if (page === "profile")
                 JSON.parse(localStorage.getItem("recentCharacters")) || [];
 
             const container =
-                document.getElementById("recentCharacters");
+    document.getElementById("sidebarRecentCharacters");
 
             if (!container) return;
 
@@ -2152,48 +2201,33 @@ if (page === "profile")
                 const character =
                     characters.find(c => c.name === name);
 
+
                 if (!character) return;
-
                 container.innerHTML += `
-        <div
-           onclick="selectCharacter('${character.id}')"
-            style="
-                min-width:250px;
-                background:#1e1e1e;
-                padding:12px;
-                margin:10px 0;
-                border-radius:12px;
-                border:2px solid var(--theme-color);
-                display:flex;
-                gap:12px;
-                cursor:pointer;
-            "
-        >
-            <img
-                src="${character.image || ""}"
-                style="
-                    width:80px;
-                    height:80px;
-                    border-radius:12px;
-                    object-fit:cover;
-                "
-            >
+<div onclick="selectCharacter('${character.id}')" style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:8px;
+    margin-bottom:6px;
+    border-radius:10px;
+    cursor:pointer;
+">
+    <img
+        src="${character.image || ""}"
+        style="
+            width:36px;
+            height:36px;
+            border-radius:8px;
+            object-fit:cover;
+        "
+    >
 
-            <div>
-                <h3 style="margin:0;color:#d9b8ff;">
-                    ${character.name}
-                </h3>
-
-                <p style="margin:5px 0;color:#d1d5db;">
-                    ${character.motto || ""}
-                </p>
-
-                <p style="margin:0;color:#9ca3af;">
-                    ${character.category || ""}
-                </p>
-            </div>
-        </div>
-    `;
+    <span style="color:white;">
+        ${character.name}
+    </span>
+</div>
+`;
             });
         }
         window.loadRecentCharacters = loadRecentCharacters;
@@ -2660,6 +2694,10 @@ window.createCharacter = createCharacter;
                 "messages",
                 JSON.stringify(messages)
             );
+            localStorage.setItem(
+    "lastChat_" + selectedCharacter,
+    Date.now()
+);
             console.log(localStorage.getItem("messages"));
 
             renderMessages();
@@ -3757,6 +3795,7 @@ const characters = snapshot.docs.map(doc => ({
     await loadFeaturedCharacters();
     await loadTrendingCharacters();
     await loadRecommendedCharacters();
+    await loadPopularCharacters();
 
     loadRecentCharacters();
     loadRecommendedCharacters();
@@ -3956,6 +3995,68 @@ const characters = snapshot.docs.map(doc => ({
             });
         }
         window.loadTrendingCharacters = loadTrendingCharacters;
+        async function loadPopularCharacters() {
+    const q = query(
+        collection(db, "characters"),
+        where("public", "==", true)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const characters = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+    }));
+
+    const container = document.getElementById("popularCharacters");
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    characters
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .forEach(character => {
+            container.innerHTML += `
+                <div
+                    onclick='selectCharacter("${character.id}")'
+                    style="
+                        min-width:280px;
+                        margin:10px;
+                        padding:12px;
+                        background:#1e1e1e;
+                        border-radius:18px;
+                        border:2px solid var(--theme-color);
+                        cursor:pointer;
+                        display:flex;
+                        gap:12px;
+                        align-items:center;
+                    "
+                >
+                    <img
+                        src="${character.image || ""}"
+                        style="
+                            width:90px;
+                            height:90px;
+                            border-radius:12px;
+                            object-fit:cover;
+                        "
+                    >
+
+                    <div>
+                        <p style="font-weight:bold;margin:0;">
+                            ${character.name}
+                        </p>
+
+                        <p style="color:#d1d5db;font-size:12px;margin:5px 0;">
+                            ${character.motto || ""}
+                        </p>
+                    </div>
+                </div>
+            `;
+        });
+}
+
+window.loadPopularCharacters = loadPopularCharacters;
         function updateLatestAnnouncement() {
 
     const title = document.getElementById("latestAnnouncementTitle");
